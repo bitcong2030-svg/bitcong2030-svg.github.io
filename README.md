@@ -118,4 +118,8 @@ bitcong2030@gmail.com
 
 ## License
 
-No open-source license has been granted yet. Until one is added, all rights are reserved by the project owner.
+Code and site source: [MIT](LICENSE) © 2026 BitCong.
+
+The MIT license covers the source code, templates, and configuration in this repository. It does not grant any right to the BCONG token, the brand name, the logo, or the whitepaper text, which remain the property of the project owner.
+
+代码与站点源码采用 [MIT](LICENSE) 许可。该许可仅覆盖本仓库的源代码、模板与配置，不涉及 BCONG 代币、品牌名称、标识与白皮书文本。
