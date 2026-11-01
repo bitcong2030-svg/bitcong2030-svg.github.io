@@ -1,9 +1,17 @@
 import { en, type Dict } from '../i18n/en';
+import { ja } from '../i18n/ja';
+import { ko } from '../i18n/ko';
+import { zhTw } from '../i18n/zh-tw';
+import { zhCn } from '../i18n/zh-cn';
 import { defaultLocale, type LocaleCode } from '../i18n/locales';
 
-/** 目前只有英文完整可用；其它语种补齐后在此注册。 */
-const dictionaries: Partial<Record<LocaleCode, Dict>> = {
-  en
+/** 全部语种字典；缺任何一份都回落到英文，避免页面空白 */
+const dictionaries: Record<LocaleCode, Dict> = {
+  en,
+  ja,
+  ko,
+  'zh-tw': zhTw,
+  'zh-cn': zhCn
 };
 
 export const getDict = (lang: LocaleCode): Dict => dictionaries[lang] ?? en;
@@ -19,7 +27,7 @@ export const url = (path = '/'): string => `${BASE}${path.replace(/^\//, '')}`;
  */
 export const href = (prefix: string, path = '/'): string => url(`${prefix}${path}`);
 
-/** 英文规范地址始终指向 /en/，根路径视为同一内容的默认入口 */
+/** 规范地址：每种语言都指向自己的语言路径 */
 export const canonicalPath = (lang: LocaleCode, path: string): string =>
   url(`/${lang}${path === '/' ? '/' : path}`);
 

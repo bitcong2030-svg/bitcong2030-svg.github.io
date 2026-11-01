@@ -17,10 +17,10 @@ export interface LocaleMeta {
  */
 export const locales: LocaleMeta[] = [
   { code: 'en', label: 'English', short: 'EN', flag: '🇺🇸', htmlLang: 'en', status: 'ready' },
-  { code: 'ja', label: '日本語', short: 'JA', flag: '🇯🇵', htmlLang: 'ja', status: 'pending' },
-  { code: 'ko', label: '한국어', short: 'KO', flag: '🇰🇷', htmlLang: 'ko', status: 'pending' },
-  { code: 'zh-tw', label: '繁體中文', short: '繁', flag: '🇹🇼', htmlLang: 'zh-Hant', status: 'pending' },
-  { code: 'zh-cn', label: '简体中文', short: '简', flag: '🇨🇳', htmlLang: 'zh-Hans', status: 'pending' }
+  { code: 'ja', label: '日本語', short: 'JA', flag: '🇯🇵', htmlLang: 'ja', status: 'ready' },
+  { code: 'ko', label: '한국어', short: 'KO', flag: '🇰🇷', htmlLang: 'ko', status: 'ready' },
+  { code: 'zh-tw', label: '繁體中文', short: '繁', flag: '🇹🇼', htmlLang: 'zh-Hant', status: 'ready' },
+  { code: 'zh-cn', label: '简体中文', short: '简', flag: '🇨🇳', htmlLang: 'zh-Hans', status: 'ready' }
 ];
 
 export const defaultLocale: LocaleCode = 'en';

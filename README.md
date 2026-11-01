@@ -27,7 +27,7 @@ The project is in its preparation stage. Nothing in this repository should be re
 │   ├── public/                  favicon, robots.txt, whitepaper PDF
 │   └── src/
 │       ├── config/site.ts       Single source of truth for token parameters
-│       ├── i18n/                locales + dictionaries (en ready; ja/ko/zh pending)
+│       ├── i18n/                locales + five dictionaries (en / ja / ko / zh-tw / zh-cn)
 │       ├── content/whitepaper/  Whitepaper v2.0 chapters (14)
 │       ├── components/          Header, Footer, LanguageSwitcher, Dial, Timeline…
 │       ├── views/               Page bodies shared by the / and /en/ trees
@@ -91,13 +91,13 @@ Cloudflare Pages is also supported as an alternative (Root directory `website`, 
 
 | Format | Location |
 | --- | --- |
-| Web (EN, 14 chapters) | `/whitepaper/` and `/en/whitepaper/` |
-| PDF (EN, A4, 13 pages) | [`website/public/bitcong-whitepaper-v2.0-en.pdf`](website/public/bitcong-whitepaper-v2.0-en.pdf) |
+| Web (5 languages, 14 chapters) | `/whitepaper/`, `/ja/whitepaper/`, `/ko/whitepaper/`, `/zh-tw/whitepaper/`, `/zh-cn/whitepaper/` |
+| PDF (A4, 12 pages) | `website/public/bitcong-whitepaper-v2.0-{en,ja,ko,zh-tw,zh-cn}.pdf` |
 | Archive (ZH, v1.0, 24 pages) | [`docs/whitepaper/bitcong-whitepaper-v1.0.pdf`](docs/whitepaper/bitcong-whitepaper-v1.0.pdf) |
 
-Whitepaper v2.0 is written in English and is the reference version for all translations. Chapter content lives in [`website/src/content/whitepaper/en.ts`](website/src/content/whitepaper/en.ts); adding a language means adding a sibling file with the same chapter ids.
+English is the reference version. Chapter content lives in `website/src/content/whitepaper/<locale>.ts`; every language keeps the same chapter ids and block structure, so the page template never changes.
 
-白皮书 V2.0 以英文为准，共 14 章；中文为 V1.0 归档版。正式发行前须经法律顾问审核。
+白皮书共 5 个语种版本，英文为准，每份 14 章、12 页 A4。正式发行前须经法律顾问审核。
 
 ---
 

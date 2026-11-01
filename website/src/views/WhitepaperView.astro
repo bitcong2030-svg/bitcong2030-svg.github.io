@@ -3,13 +3,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import type { LocaleCode } from '../i18n/locales';
 import { getDict, url } from '../lib/i18n';
-import { chapters } from '../content/whitepaper/en';
+import { getChapters } from '../content/whitepaper';
 
 interface Props { lang: LocaleCode; }
 const { lang } = Astro.props;
 const t = getDict(lang);
+const chapters = getChapters(lang);
 
-const pdfName = 'bitcong-whitepaper-v2.0-en.pdf';
+const pdfName = `bitcong-whitepaper-v2.0-${lang}.pdf`;
 const pdfExists = fs.existsSync(path.join(process.cwd(), 'public', pdfName));
 ---
 
@@ -33,8 +34,8 @@ const pdfExists = fs.existsSync(path.join(process.cwd(), 'public', pdfName));
   </div>
   <div class="pc-main">
     <h1>BitCong</h1>
-    <p class="pc-sub">One Satoshi. One Community.</p>
-    <p class="pc-doc">Whitepaper · Version 2.0 · Discussion draft</p>
+    <p class="pc-sub">{t.footer.tagline}</p>
+    <p class="pc-doc">{t.whitepaper.version}</p>
   </div>
   <div class="pc-bottom">
     <span>October 2026</span>
