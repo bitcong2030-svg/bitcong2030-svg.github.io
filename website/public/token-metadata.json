@@ -1,0 +1,17 @@
+{
+  "name": "BitCong",
+  "symbol": "BCONG",
+  "description": "BitCong is a community-driven meme token on Solana, inspired by Bitcoin culture and the spirit of Satoshi Nakamoto. It is not backed by Bitcoin and does not represent a claim on BTC.",
+  "image": "https://bitcong2030-svg.github.io/token-icon.png",
+  "external_url": "https://bitcong2030-svg.github.io/",
+  "attributes": [
+    { "trait_type": "Network", "value": "Solana" },
+    { "trait_type": "Decimals", "value": "0" }
+  ],
+  "properties": {
+    "category": "image",
+    "files": [
+      { "uri": "https://bitcong2030-svg.github.io/token-icon.png", "type": "image/png" }
+    ]
+  }
+}
