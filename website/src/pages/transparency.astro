@@ -1,31 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { site } from '../config/site';
+import TransparencyView from '../views/TransparencyView.astro';
+import { getDict } from '../lib/i18n';
+
+const t = getDict('en');
 ---
-<BaseLayout active="transparency" title="透明度中心 — BitCong 比特聪">
-  <section class="container page-hero">
-    <div class="eyebrow">VERIFY, DON'T TRUST</div>
-    <h1>透明度中心</h1>
-    <p>重要信息应当可以独立核验。当前项目处于准备阶段，尚未填写真实链上地址，因此不会展示虚构的 Mint、金库或流动性地址。</p>
-  </section>
-  <section class="container section">
-    <div class="cards">
-      <article class="card"><span class="card-number">TOKEN MINT</span><h3>尚未公布</h3><p>只有在主网发行完成并经核验后，才会公布唯一 Mint 地址。</p></article>
-      <article class="card"><span class="card-number">TREASURY</span><h3>尚未公布</h3><p>社区金库多签成员、门限及地址须在实际创建后公开。</p></article>
-      <article class="card"><span class="card-number">LIQUIDITY</span><h3>尚未建立</h3><p>交易池、流动性头寸及其锁定或销毁凭证须以实际链上记录为准。</p></article>
-    </div>
-    <h2 style="font-size:26px;margin-top:60px">公开披露清单</h2>
-    <table class="data-table">
-      <thead><tr><th>披露项目</th><th>当前状态</th><th>上线后核验方式</th></tr></thead>
-      <tbody>
-        <tr><td>Token Mint 地址</td><td>待发行</td><td>Solscan / Solana Explorer</td></tr>
-        <tr><td>Mint Authority</td><td>待验证</td><td>链上 Mint 权限状态</td></tr>
-        <tr><td>Freeze Authority</td><td>待验证</td><td>链上 Mint 权限状态</td></tr>
-        <tr><td>团队锁仓</td><td>待执行</td><td>锁仓合约及交易记录</td></tr>
-        <tr><td>社区金库多签</td><td>待创建</td><td>Squads 多签页面</td></tr>
-        <tr><td>DEX 流动性</td><td>待建立</td><td>交易池及 LP 头寸信息</td></tr>
-      </tbody>
-    </table>
-    <div class="note">请勿相信任何声称代表 BitCong 提供“提前购买”“内部空投”或“代领服务”的个人或网站。正式地址仅会在本透明度页面更新，并通过已核验的官方渠道同步。</div>
-  </section>
+
+<BaseLayout lang="en" prefix="" path="/transparency/" title={`${t.transparency.title} — BitCong`} description={t.transparency.intro} active="transparency">
+  <TransparencyView lang="en" prefix="" />
 </BaseLayout>

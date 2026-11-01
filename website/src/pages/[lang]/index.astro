@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HomeView from '../../views/HomeView.astro';
+import { getDict } from '../../lib/i18n';
+import { locales, type LocaleCode } from '../../i18n/locales';
+
+export function getStaticPaths() {
+  return locales.filter((l) => l.status === 'ready').map((l) => ({ params: { lang: l.code } }));
+}
+
+const lang = Astro.params.lang as LocaleCode;
+const t = getDict(lang);
+const prefix = `/${lang}`;
+---
+
+<BaseLayout lang={lang} prefix={prefix} path="/" title={t.meta.title} description={t.meta.description} active="home">
+  <HomeView lang={lang} prefix={prefix} />
+</BaseLayout>

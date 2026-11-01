@@ -1,0 +1,33 @@
+---
+import { swap } from '../config/site';
+import { getDict } from '../lib/i18n';
+import type { LocaleCode } from '../i18n/locales';
+
+interface Props {
+  lang: LocaleCode;
+  variant?: 'header' | 'cta';
+}
+
+const { lang, variant = 'header' } = Astro.props;
+const t = getDict(lang);
+
+/** 只有 Mint 地址真实存在时才启用；否则显示禁用态，避免空点与误导 */
+const ready = swap.mintAddress.trim().length > 0;
+const className = variant === 'header' ? 'btn btn-ghost btn-small' : 'btn btn-primary btn-small';
+---
+
+{ready ? (
+  <a
+    class={className}
+    href={swap.url(swap.mintAddress)}
+    target="_blank"
+    rel="noopener noreferrer"
+    title={`${t.common.swap} · ${swap.provider}`}
+  >
+    {t.common.swap} <span aria-hidden="true">↗</span>
+  </a>
+) : (
+  <span class={`${className} is-disabled`} aria-disabled="true" title={t.common.swapUnavailable}>
+    {t.common.swapSoon}
+  </span>
+)}

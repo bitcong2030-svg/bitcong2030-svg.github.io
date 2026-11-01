@@ -1,0 +1,154 @@
+---
+import type { LocaleCode } from '../i18n/locales';
+import { getDict } from '../lib/i18n';
+import { allocation, chainStatus, token } from '../config/site';
+import { formatCompact, formatFull } from '../lib/format';
+import Dial from '../components/Dial.astro';
+import StatusCard from '../components/StatusCard.astro';
+import SwapButton from '../components/SwapButton.astro';
+
+interface Props { lang: LocaleCode; }
+const { lang } = Astro.props;
+const t = getDict(lang);
+
+const rows = allocation.map((item) => ({
+  ...item,
+  name: t.allocationNames[item.key],
+  note: t.allocationNotes[item.key],
+  compact: formatCompact(item.amount, lang),
+  full: formatFull(item.amount, lang)
+}));
+
+const authority = chainStatus.filter((s) => ['mint', 'freeze', 'metadata', 'vesting', 'treasury'].includes(s.key));
+---
+
+<section class="container page-head">
+  <span class="eyebrow">{t.tokenomics.eyebrow}</span>
+  <h1>{t.tokenomics.title}</h1>
+  <p>{t.tokenomics.intro}</p>
+  <div class="version">{t.common.lastUpdated}</div>
+</section>
+
+<section class="container section-tight">
+  <div class="stat-grid">
+    <div class="stat">
+      <div class="label">{t.home.stats.supplyLabel}</div>
+      <div class="value accent">{formatCompact(token.totalSupply, lang)}</div>
+      <div class="note">{formatFull(token.totalSupply, lang)}</div>
+    </div>
+    <div class="stat">
+      <div class="label">Decimals</div>
+      <div class="value">{token.decimals}</div>
+      <div class="note">1 {token.ticker} = 1 smallest unit</div>
+    </div>
+    <div class="stat">
+      <div class="label">Transaction tax</div>
+      <div class="value">{token.tax}%</div>
+      <div class="note">Planned, not deployed</div>
+    </div>
+    <div class="stat">
+      <div class="label">{t.home.stats.statusLabel}</div>
+      <div class="value">{t.statuses.not_launched}</div>
+      <div class="note">{t.home.stats.statusNote}</div>
+    </div>
+  </div>
+</section>
+
+<section class="container section-tight">
+  <div class="hero-grid" style="gap:64px">
+    <Dial lang={lang} t={t} />
+    <div>
+      <div class="rows">
+        {rows.map((item) => (
+          <div class="row">
+            <div class="name">{item.name}<small>{item.compact}</small></div>
+            <div class="track"><div class="fill" style={`width:${item.percent}%;background:${item.color}`} /></div>
+            <div class="pct">{item.percent}%</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="table-wrap" style="margin-top:44px">
+    <table>
+      <thead>
+        <tr>
+          <th>Allocation</th>
+          <th>Share</th>
+          <th>Compact</th>
+          <th>Exact amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((item) => (
+          <tr>
+            <td>{item.name}<small>{item.note}</small></td>
+            <td class="mono">{item.percent}%</td>
+            <td class="mono">{item.compact}</td>
+            <td class="mono">{item.full}</td>
+          </tr>
+        ))}
+        <tr>
+          <td><strong>Total</strong></td>
+          <td class="mono">100%</td>
+          <td class="mono">{formatCompact(token.totalSupply, lang)}</td>
+          <td class="mono">{formatFull(token.totalSupply, lang)}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="section-head">
+    <div><h2>{t.pages.tokenomics.mechanicsTitle}</h2></div>
+  </div>
+  <div class="grid-4">
+    {t.pages.tokenomics.mechanics.map((m) => (
+      <article class="card">
+        <h3 style="margin-top:0">{m.title}</h3>
+        <p>{m.body}</p>
+      </article>
+    ))}
+  </div>
+</section>
+
+<section class="container section-tight">
+  <div class="section-head">
+    <div><h2>{t.pages.tokenomics.authorityTitle}</h2></div>
+    <p class="section-intro">{t.pages.tokenomics.authorityNote}</p>
+  </div>
+  <div class="grid-3">
+    {authority.map((item) => (
+      <StatusCard name={t.statusItems[item.key]} state={t.statuses[item.state]} warn />
+    ))}
+  </div>
+</section>
+
+<section class="container section-tight">
+  <div class="swap-block">
+    <SwapButton lang={lang} variant="cta" />
+    <span class="swap-note">{t.common.swapNote}</span>
+  </div>
+  <p style="margin-top:14px;font-size:11px;line-height:1.8;color:var(--muted2)">{t.common.swapUnavailable}</p>
+</section>
+
+<section class="container section-tight">
+  <div class="grid-2">
+    <div class="card">
+      <h3 style="margin-top:0">{t.pages.tokenomics.vestingTitle}</h3>
+      <p>{t.pages.tokenomics.vestingBody}</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">{t.pages.tokenomics.canceledTitle}</h3>
+      <ul class="plain" style="margin:0;padding-left:0;list-style:none">
+        {t.pages.tokenomics.canceled.map((c) => (
+          <li style="font-size:13px;color:var(--muted);padding:7px 0;border-bottom:1px solid var(--line-soft)">
+            <strong style="color:var(--ink);font-weight:600">{c.name}</strong> — {c.reason}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>

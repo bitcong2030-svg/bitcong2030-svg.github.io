@@ -1,0 +1,66 @@
+---
+import type { LocaleCode } from '../i18n/locales';
+import { getDict } from '../lib/i18n';
+import { chainStatus } from '../config/site';
+import StatusCard from '../components/StatusCard.astro';
+
+interface Props { lang: LocaleCode; }
+const { lang } = Astro.props;
+const t = getDict(lang);
+
+const items = chainStatus.map((item) => ({
+  name: t.statusItems[item.key],
+  state: t.statuses[item.state],
+  verify: t.pages.transparency.verify[item.key],
+  warn: item.state !== 'completed'
+}));
+---
+
+<section class="container page-head">
+  <span class="eyebrow">{t.transparency.eyebrow}</span>
+  <h1>{t.transparency.title}</h1>
+  <p>{t.transparency.intro}</p>
+</section>
+
+<section class="container section-tight">
+  <div class="grid-4">
+    {items.map((item) => (
+      <StatusCard name={item.name} state={item.state} warn={item.warn} />
+    ))}
+  </div>
+</section>
+
+<section class="container section-tight">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>{t.pages.transparency.tableHead.item}</th>
+          <th>{t.pages.transparency.tableHead.status}</th>
+          <th>{t.pages.transparency.tableHead.verify}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {items.map((item) => (
+          <tr>
+            <td>{item.name}</td>
+            <td class="mono" style="color:var(--accent-soft)">{item.state}</td>
+            <td>{item.verify}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="container section-tight">
+  <div class="risk">
+    <h3>{t.pages.transparency.principleTitle}</h3>
+    <ul style="margin:14px 0 0;padding-left:18px">
+      {t.pages.transparency.principles.map((p) => (
+        <li style="font-size:13px;line-height:1.9;color:var(--muted);padding:4px 0">{p}</li>
+      ))}
+    </ul>
+  </div>
+  <p style="margin-top:24px;font-size:12px;line-height:1.9;color:var(--muted2)">{t.pages.transparency.warning}</p>
+</section>

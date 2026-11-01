@@ -1,0 +1,45 @@
+---
+import type { LocaleCode } from '../i18n/locales';
+import { getDict, href } from '../lib/i18n';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import SwapButton from './SwapButton.astro';
+
+interface Props {
+  lang: LocaleCode;
+  prefix: string;
+  path: string;
+  active?: string;
+}
+
+const { lang, prefix, path, active = 'home' } = Astro.props;
+const t = getDict(lang);
+
+const items = [
+  { key: 'home', label: t.nav.home, to: '/' },
+  { key: 'whitepaper', label: t.nav.whitepaper, to: '/whitepaper/' },
+  { key: 'tokenomics', label: t.nav.tokenomics, to: '/tokenomics/' },
+  { key: 'community', label: t.nav.community, to: '/community/' },
+  { key: 'transparency', label: t.nav.transparency, to: '/transparency/' },
+  { key: 'contact', label: t.nav.contact, to: '/contact/' }
+];
+---
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href={href(prefix, '/')} aria-label="BitCong home">
+      <span class="brand-mark">聪</span>
+      <span class="brand-name">BIT<span>CONG</span><span class="brand-sub">COMMUNITY TOKEN</span></span>
+    </a>
+
+    <nav class="nav" aria-label="Main navigation">
+      {items.map((item) => (
+        <a href={href(prefix, item.to)} class:list={[{ active: active === item.key }]}>{item.label}</a>
+      ))}
+    </nav>
+
+    <div class="header-actions">
+      <LanguageSwitcher lang={lang} prefix={prefix} path={path} label={t.common.languageLabel} />
+      <SwapButton lang={lang} />
+    </div>
+  </div>
+</header>

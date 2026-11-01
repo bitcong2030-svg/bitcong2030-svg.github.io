@@ -1,0 +1,106 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import type { LocaleCode } from '../i18n/locales';
+import { getDict, url } from '../lib/i18n';
+import { getChapters } from '../content/whitepaper';
+
+interface Props { lang: LocaleCode; }
+const { lang } = Astro.props;
+const t = getDict(lang);
+const chapters = getChapters(lang);
+
+const pdfName = `bitcong-whitepaper-v2.0-${lang}.pdf`;
+const pdfExists = fs.existsSync(path.join(process.cwd(), 'public', pdfName));
+---
+
+<section class="container page-head">
+  <span class="eyebrow">{t.whitepaper.eyebrow}</span>
+  <h1>{t.whitepaper.title}</h1>
+  <p>{t.whitepaper.intro}</p>
+  <div class="version">{t.whitepaper.version}</div>
+  {pdfExists && (
+    <div class="hero-actions" style="margin-top:24px">
+      <a class="btn btn-ghost btn-small" href={url(`/${pdfName}`)} download>{t.common.downloadPdf}</a>
+    </div>
+  )}
+</section>
+
+<!-- 仅打印时出现的封面（导出 PDF 用） -->
+<section class="print-cover">
+  <div class="pc-top">
+    <span>BITCONG</span>
+    <span>WHITEPAPER V2.0</span>
+  </div>
+  <div class="pc-main">
+    <h1>BitCong</h1>
+    <p class="pc-sub">{t.footer.tagline}</p>
+    <p class="pc-doc">{t.whitepaper.version}</p>
+  </div>
+  <div class="pc-bottom">
+    <span>October 2026</span>
+    <span>bitcong2030@gmail.com</span>
+  </div>
+</section>
+
+<div class="container doc">
+  <aside class="doc-nav" aria-label={t.whitepaper.tocLabel}>
+    <span class="label">{t.whitepaper.tocLabel}</span>
+    {chapters.map((c) => (
+      <a href={`#${c.id}`}>
+        <span class="n">{c.num}</span>
+        <span>{c.title}</span>
+      </a>
+    ))}
+  </aside>
+
+  <article class="doc-body prose">
+    {chapters.map((chapter) => (
+      <section class="chapter" id={chapter.id}>
+        <div class="chapter-head">
+          <span class="chapter-num">{t.whitepaper.chapterLabel.toUpperCase()} {chapter.num}</span>
+          <h2>{chapter.title}</h2>
+        </div>
+
+        {chapter.blocks.map((block) => (
+          block.type === 'p' ? <p>{block.text}</p> :
+          block.type === 'h3' ? <h3>{block.text}</h3> :
+          block.type === 'note' ? <div class="note">{block.text}</div> :
+          block.type === 'ul' ? <ul>{block.items.map((item) => <li>{item}</li>)}</ul> :
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>{block.head.map((cell) => <th>{cell}</th>)}</tr>
+              </thead>
+              <tbody>
+                {block.rows.map((row) => (
+                  <tr>{row.map((cell) => <td>{cell}</td>)}</tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ))}
+      </section>
+    ))}
+  </article>
+</div>
+
+<script>
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.doc-nav a'));
+  const sections = links
+    .map((a) => document.getElementById(a.getAttribute('href')!.slice(1)))
+    .filter((el): el is HTMLElement => !!el);
+
+  const onScroll = () => {
+    let current = sections[0]?.id;
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= 140) current = section.id;
+    }
+    links.forEach((a) => {
+      a.classList.toggle('active', a.getAttribute('href') === `#${current}`);
+    });
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>

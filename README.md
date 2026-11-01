@@ -23,18 +23,23 @@ The project is in its preparation stage. Nothing in this repository should be re
 
 ```
 .
-├── website/                 Astro static site (official website)
-│   ├── public/fonts/        Self-hosted webfonts (no external CDN)
+├── website/                     Astro static site (official website)
+│   ├── public/                  favicon, robots.txt, whitepaper PDF
 │   └── src/
-│       ├── config/site.ts   Single source of truth for token parameters
-│       ├── layouts/
-│       ├── pages/           index / whitepaper / tokenomics / community / transparency
+│       ├── config/site.ts       Single source of truth for token parameters
+│       ├── i18n/                locales + five dictionaries (en / ja / ko / zh-tw / zh-cn)
+│       ├── content/whitepaper/  Whitepaper v2.0 chapters (14)
+│       ├── components/          Header, Footer, LanguageSwitcher, Dial, Timeline…
+│       ├── views/               Page bodies shared by the / and /en/ trees
+│       ├── pages/               six routes + [lang] variants
+│       ├── lib/                 path helpers and per-language number formatting
+│       ├── assets/fonts/        Self-hosted webfonts (Vite pipeline)
 │       └── styles/
 └── docs/
-    └── whitepaper/          Whitepaper V1.0 — HTML + PDF
+    └── whitepaper/              Whitepaper v1.0 archive (Chinese, 24 pages)
         ├── index.html
         ├── bitcong-whitepaper-v1.0.pdf
-        └── assets/          Fonts, charts, libraries
+        └── assets/              Fonts, charts, libraries
 ```
 
 All token parameters live in a single file: [`website/src/config/site.ts`](website/src/config/site.ts). Change them there, not in page templates.
@@ -84,14 +89,15 @@ Cloudflare Pages is also supported as an alternative (Root directory `website`, 
 
 ## Whitepaper · 白皮书
 
-| Format | File |
+| Format | Location |
 | --- | --- |
-| Web | [`docs/whitepaper/index.html`](docs/whitepaper/index.html) |
-| PDF (A4, 24 pages) | [`docs/whitepaper/bitcong-whitepaper-v1.0.pdf`](docs/whitepaper/bitcong-whitepaper-v1.0.pdf) |
+| Web (5 languages, 14 chapters) | `/whitepaper/`, `/ja/whitepaper/`, `/ko/whitepaper/`, `/zh-tw/whitepaper/`, `/zh-cn/whitepaper/` |
+| PDF (A4, 12 pages) | `website/public/bitcong-whitepaper-v2.0-{en,ja,ko,zh-tw,zh-cn}.pdf` |
+| Archive (ZH, v1.0, 24 pages) | [`docs/whitepaper/bitcong-whitepaper-v1.0.pdf`](docs/whitepaper/bitcong-whitepaper-v1.0.pdf) |
 
-The whitepaper is a discussion draft. It is bilingual only in headings and brand terms; the body is written in Simplified Chinese.
+English is the reference version. Chapter content lives in `website/src/content/whitepaper/<locale>.ts`; every language keeps the same chapter ids and block structure, so the page template never changes.
 
-白皮书为讨论稿，正式发行前须经法律顾问审核。
+白皮书共 5 个语种版本，英文为准，每份 14 章、12 页 A4。正式发行前须经法律顾问审核。
 
 ---
 

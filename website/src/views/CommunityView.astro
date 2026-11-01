@@ -1,0 +1,70 @@
+---
+import type { LocaleCode } from '../i18n/locales';
+import { getDict } from '../lib/i18n';
+
+interface Props { lang: LocaleCode; }
+const { lang } = Astro.props;
+const t = getDict(lang);
+---
+
+<section class="container page-head">
+  <span class="eyebrow">{t.community.eyebrow}</span>
+  <h1>{t.community.title}</h1>
+  <p>{t.community.intro}</p>
+</section>
+
+<section class="container section-tight">
+  <div class="grid-3">
+    {t.pages.community.platforms.map((p) => (
+      <article class="card">
+        <span class="tag">{p.name.toUpperCase()}</span>
+        <h3>{p.purpose}</h3>
+        <p>{p.detail}</p>
+        <p style="margin-top:16px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--accent-soft)">
+          {t.common.pendingVerification}
+        </p>
+      </article>
+    ))}
+  </div>
+</section>
+
+<section class="container section-tight">
+  <div class="section-head">
+    <div><h2>{t.pages.community.pillarsTitle}</h2></div>
+  </div>
+  <div class="grid-3">
+    {t.pages.community.pillars.map((p, i) => (
+      <article class="card">
+        <span class="tag">{`0${i + 1}`}</span>
+        <h3>{p.title}</h3>
+        <p>{p.body}</p>
+      </article>
+    ))}
+  </div>
+</section>
+
+<section class="container section-tight">
+  <div class="section-head">
+    <div><h2>{t.pages.community.metricsTitle}</h2></div>
+  </div>
+  <div class="grid-3">
+    {t.pages.community.metrics.map((m, i) => (
+      <article class="card">
+        <span class="tag">{`0${i + 1}`}</span>
+        <h3>{m.title}</h3>
+        <p>{m.body}</p>
+      </article>
+    ))}
+  </div>
+</section>
+
+<section class="container" style="padding-bottom:110px">
+  <div class="risk">
+    <h3>{t.pages.community.rulesTitle}</h3>
+    <ul style="margin:14px 0 0;padding-left:18px">
+      {t.pages.community.rules.map((rule) => (
+        <li style="font-size:13px;line-height:1.9;color:var(--muted);padding:4px 0">{rule}</li>
+      ))}
+    </ul>
+  </div>
+</section>

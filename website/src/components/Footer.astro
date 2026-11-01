@@ -1,0 +1,61 @@
+---
+import type { LocaleCode } from '../i18n/locales';
+import { getDict, href } from '../lib/i18n';
+import { contact, socials } from '../config/site';
+
+interface Props { lang: LocaleCode; prefix: string; }
+const { lang, prefix } = Astro.props;
+const t = getDict(lang);
+
+const projectLinks = [
+  { label: t.nav.home, to: '/' },
+  { label: t.nav.tokenomics, to: '/tokenomics/' },
+  { label: t.nav.community, to: '/community/' },
+  { label: t.nav.transparency, to: '/transparency/' }
+];
+const docLinks = [
+  { label: t.nav.whitepaper, to: '/whitepaper/' },
+  { label: t.nav.contact, to: '/contact/' }
+];
+---
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href={href(prefix, '/')}>
+          <span class="brand-mark">聪</span>
+          <span class="brand-name">BIT<span>CONG</span><span class="brand-sub">COMMUNITY TOKEN</span></span>
+        </a>
+        <p>{t.footer.tagline}</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>{t.footer.columns.project}</h4>
+        {projectLinks.map((l) => <a href={href(prefix, l.to)}>{l.label}</a>)}
+      </div>
+
+      <div class="footer-col">
+        <h4>{t.footer.columns.documents}</h4>
+        {docLinks.map((l) => <a href={href(prefix, l.to)}>{l.label}</a>)}
+        <span class="footer-mail" data-mail={`${contact.emailUser}|${contact.emailDomain}`}>{contact.display}</span>
+      </div>
+    </div>
+
+    <p class="footer-disclaimer">{t.footer.disclaimer}</p>
+
+    <div class="footer-bottom">
+      <span>© {new Date().getFullYear()} {t.footer.rights}</span>
+      <span>{t.footer.notAffiliated}</span>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.footer-mail').forEach((el) => {
+      el.addEventListener('click', () => {
+        const [user, domain] = ((el as HTMLElement).dataset.mail || '').split('|');
+        if (user && domain) window.location.href = `mailto:${user}@${domain}`;
+      });
+    });
+  </script>
+</footer>

@@ -1,0 +1,13 @@
+---
+interface Props {
+  title: string;
+  paragraphs: string[];
+}
+
+const { title, paragraphs } = Astro.props;
+---
+
+<section class="risk">
+  <h3>{title}</h3>
+  {paragraphs.map((body) => <p>{body}</p>)}
+</section>
