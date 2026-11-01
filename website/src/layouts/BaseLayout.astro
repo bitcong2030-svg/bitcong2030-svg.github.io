@@ -48,7 +48,7 @@ const ready = locales.filter((l) => l.status === 'ready');
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
   </head>
-  <body>
+  <body id="top">
     <Header lang={lang} prefix={prefix} path={path} active={active} />
     <main>
       <slot />
