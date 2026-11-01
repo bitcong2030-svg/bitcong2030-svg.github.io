@@ -1,6 +1,7 @@
 ---
 import type { LocaleCode } from '../i18n/locales';
 import { getDict, href } from '../lib/i18n';
+import BrandMark from './BrandMark.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import SwapButton from './SwapButton.astro';
 
@@ -27,7 +28,7 @@ const items = [
 <header class="site-header">
   <div class="header-inner">
     <a class="brand" href={href(prefix, '/')} aria-label="BitCong home">
-      <span class="brand-mark">聪</span>
+      <span class="brand-mark"><BrandMark size={32} /></span>
       <span class="brand-name">BIT<span>CONG</span><span class="brand-sub">COMMUNITY TOKEN</span></span>
     </a>
 

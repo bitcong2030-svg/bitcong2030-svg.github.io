@@ -1,0 +1,36 @@
+---
+interface Props {
+  size?: number;
+  /** 默认橙色；反白场景传 currentColor */
+  color?: string;
+  class?: string;
+}
+const { size = 34, color = '#FF8A24', class: className } = Astro.props;
+---
+
+<svg
+  class={className}
+  width={size}
+  height={size}
+  viewBox="0 0 64 64"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="BitCong"
+>
+  <!-- 硬币外环：细线空心，避免与 Bitcoin 的实心徽标混淆 -->
+  <circle cx="32" cy="32" r="29" stroke={color} stroke-width="3" />
+  <!-- BC 单体字：正立不旋转，字碗方角收口 -->
+  <path
+    d="M24 15.5V48.5M24 21H38.5C41.4 21 43.5 23.1 43.5 26C43.5 28.9 41.4 31 38.5 31H24"
+    stroke={color}
+    stroke-width="6"
+    stroke-linejoin="miter"
+  />
+  <path
+    d="M24 34H40C42.9 34 45 36.1 45 39C45 41.9 42.9 44 40 44H24"
+    stroke={color}
+    stroke-width="6"
+    stroke-linejoin="miter"
+  />
+</svg>

@@ -2,6 +2,7 @@
 import type { LocaleCode } from '../i18n/locales';
 import { getDict, href } from '../lib/i18n';
 import { contact, socials } from '../config/site';
+import BrandMark from './BrandMark.astro';
 
 interface Props { lang: LocaleCode; prefix: string; }
 const { lang, prefix } = Astro.props;
@@ -24,7 +25,7 @@ const docLinks = [
     <div class="footer-top">
       <div class="footer-brand">
         <a class="brand" href={href(prefix, '/')}>
-          <span class="brand-mark">聪</span>
+          <span class="brand-mark"><BrandMark size={32} /></span>
           <span class="brand-name">BIT<span>CONG</span><span class="brand-sub">COMMUNITY TOKEN</span></span>
         </a>
         <p>{t.footer.tagline}</p>

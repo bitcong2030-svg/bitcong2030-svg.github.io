@@ -121,12 +121,8 @@ h1, h2, h3, h4 { margin: 0; font-weight: 700; letter-spacing: -.01em; }
 .brand { display: flex; align-items: center; gap: 12px; flex: none; }
 .brand-mark {
   width: 34px; height: 34px;
-  border: 1px solid var(--accent-dim);
-  border-radius: var(--radius);
   display: grid; place-items: center;
   color: var(--accent);
-  font-size: 16px; font-weight: 600;
-  background: rgba(255, 138, 36, .06);
 }
 .brand-name { font: 700 13px var(--sans); letter-spacing: .16em; line-height: 1.1; }
 .brand-name > span { color: var(--accent); }
