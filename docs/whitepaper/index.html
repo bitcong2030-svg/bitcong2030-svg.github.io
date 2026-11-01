@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>比特聪 BITCONG 白皮书 V1.0</title>
+<meta name="description" content="比特聪 BITCONG：基于 Solana 的比特币文化社区 Meme 项目白皮书 V1.0">
+<style>
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('./assets/fonts/InstrumentSerif-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('./assets/fonts/InstrumentSerif-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Instrument Sans';
+  src: url('./assets/fonts/InstrumentSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Instrument Sans';
+  src: url('./assets/fonts/InstrumentSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('./assets/fonts/IBMPlexMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('./assets/fonts/IBMPlexMono-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+}
+</style>
+
+<style>
+:root {
+  --bg: #FAF8F3;
+  --bg2: #F1ECE1;
+  --ink: #17140F;
+  --muted: #6E6659;
+  --rule: #DED6C7;
+  --accent: #B8540B;
+  --accent2: #1E3A32;
+  --accent3: #8C7A5E;
+  --dark: #0E0D0B;
+  --paper: #F2EDE3;
+  --font-sans: 'Instrument Sans', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --font-serif: 'Instrument Serif', 'Songti SC', 'Noto Serif SC', 'Georgia', serif;
+  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace;
+  --max: 900px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font-sans);
+  color: var(--ink);
+  background: var(--bg);
+  font-size: 16px;
+  line-height: 1.85;
+  letter-spacing: .01em;
+  -webkit-font-smoothing: antialiased;
+}
+article.page { max-width: var(--max); margin: 0 auto; padding: 0 1.5rem 6rem; }
+p { text-align: justify; }
+strong { font-weight: 700; }
+a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(184,84,11,.28); }
+a:hover { border-bottom-color: var(--accent); }
+code, .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* ---------- Cover ---------- */
+.cover {
+  background: var(--dark);
+  color: var(--paper);
+  max-width: none;
+  margin: 0;
+  padding: 3.2rem clamp(1.5rem, 5vw, 5rem) 2.6rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.cover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(242,237,227,.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(242,237,227,.055) 1px, transparent 1px);
+  background-size: 88px 88px;
+  pointer-events: none;
+}
+.cover > * { position: relative; z-index: 1; }
+.cover-top {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-family: var(--font-mono); font-size: .72rem; letter-spacing: .18em;
+  text-transform: uppercase; color: rgba(242,237,227,.62);
+  border-bottom: 1px solid rgba(242,237,227,.18); padding-bottom: .9rem;
+}
+.cover-main { padding: 3rem 0 2rem; }
+.kicker {
+  font-family: var(--font-mono); font-size: .74rem; letter-spacing: .26em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 2rem;
+}
+.cover h1 {
+  font-family: var(--font-serif); font-weight: 400;
+  font-size: clamp(4.4rem, 15vw, 9.5rem);
+  line-height: .92; letter-spacing: .04em; color: var(--paper);
+}
+.cover-en {
+  font-family: var(--font-serif); font-size: clamp(1.6rem, 4vw, 2.4rem);
+  letter-spacing: .42em; text-transform: uppercase;
+  color: rgba(242,237,227,.55); margin-top: 1.1rem;
+}
+.cover-line {
+  margin-top: 2.6rem; font-size: 1.08rem; letter-spacing: .1em; color: rgba(242,237,227,.9);
+  border-left: 2px solid var(--accent); padding-left: 1.1rem; text-align: left;
+}
+.cover-line span {
+  display: block; font-family: var(--font-mono); font-size: .7rem;
+  letter-spacing: .2em; color: rgba(242,237,227,.5); margin-top: .5rem;
+}
+.cover-facts {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid rgba(242,237,227,.18);
+}
+.cover-facts div {
+  padding: 1.15rem 1.1rem 0 0; border-right: 1px solid rgba(242,237,227,.12);
+}
+.cover-facts div:last-child { border-right: none; }
+.cover-facts dt {
+  font-family: var(--font-mono); font-size: .62rem; letter-spacing: .16em;
+  text-transform: uppercase; color: rgba(242,237,227,.45); margin-bottom: .5rem;
+}
+.cover-facts dd { font-size: .82rem; line-height: 1.5; color: var(--paper); }
+.cover-facts dd em { display: block; font-family: var(--font-mono); font-size: .7rem; font-style: normal; color: rgba(242,237,227,.5); margin-top: .2rem; }
+.cover-foot {
+  margin-top: 1.6rem; font-family: var(--font-mono); font-size: .64rem;
+  letter-spacing: .1em; color: rgba(242,237,227,.42);
+  display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+}
+
+/* ---------- Document shell ---------- */
+.docmeta {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  margin: 3.4rem 0 0;
+}
+.docmeta div { padding: 1rem 1rem 1rem 0; }
+.docmeta dt { font-family: var(--font-mono); font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: .35rem; }
+.docmeta dd { font-size: .84rem; }
+
+.notice {
+  margin: 2.2rem 0 0; background: var(--bg2); border-left: 2px solid var(--accent);
+  padding: 1.3rem 1.5rem; font-size: .86rem; line-height: 1.8; color: #3A342B;
+}
+.notice p + p { margin-top: .6rem; }
+.notice .label {
+  font-family: var(--font-mono); font-size: .64rem; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--accent); display: block; margin-bottom: .55rem;
+}
+
+/* ---------- TOC ---------- */
+.toc { margin: 4rem 0 0; }
+.toc h2 {
+  font-family: var(--font-mono); font-size: .68rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--muted); font-weight: 400;
+  border-bottom: 1px solid var(--ink); padding-bottom: .6rem; margin-bottom: 1.4rem;
+}
+.toc ol { list-style: none; columns: 2; column-gap: 3rem; }
+.toc li { break-inside: avoid; margin-bottom: .55rem; font-size: .88rem; }
+.toc li a { color: var(--ink); border-bottom: none; display: flex; gap: .7rem; }
+.toc li a:hover { color: var(--accent); }
+.toc .n { font-family: var(--font-mono); font-size: .72rem; color: var(--accent3); padding-top: .18rem; }
+
+/* ---------- Chapters ---------- */
+.chapter { margin-top: 5.5rem; }
+.chapter-head { border-top: 1px solid var(--ink); padding-top: 1rem; margin-bottom: 2.2rem; }
+.chapter-head .n {
+  font-family: var(--font-serif); font-size: 1.05rem; letter-spacing: .12em;
+  color: var(--accent); display: block; margin-bottom: .6rem;
+}
+.chapter-head h2 {
+  font-family: var(--font-serif); font-weight: 400;
+  font-size: clamp(1.85rem, 4vw, 2.55rem); line-height: 1.25; letter-spacing: .02em;
+}
+.chapter-head .en {
+  display: block; font-family: var(--font-mono); font-size: .66rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--muted); margin-top: .7rem;
+}
+h3 {
+  font-size: 1.06rem; font-weight: 700; letter-spacing: .02em;
+  margin: 2.6rem 0 .9rem; padding-left: .85rem; border-left: 3px solid var(--accent);
+  line-height: 1.5;
+}
+h4 { font-size: .95rem; font-weight: 700; margin: 1.9rem 0 .6rem; color: var(--accent2); }
+p + p { margin-top: .95rem; }
+.lead { font-size: 1.06rem; line-height: 1.9; color: #2A251E; }
+.small { font-size: .82rem; color: var(--muted); line-height: 1.75; }
+
+/* ---------- Lists ---------- */
+ul.plain, ol.plain { list-style: none; margin: 1rem 0; }
+ul.plain > li, ol.plain > li {
+  position: relative; padding-left: 1.5rem; margin-bottom: .6rem; font-size: .95rem;
+}
+ul.plain > li::before {
+  content: ""; position: absolute; left: 0; top: .78em;
+  width: 7px; height: 1px; background: var(--accent);
+}
+ol.plain { counter-reset: item; }
+ol.plain > li { counter-increment: item; }
+ol.plain > li::before {
+  content: counter(item, decimal-leading-zero); position: absolute; left: 0; top: .12em;
+  font-family: var(--font-mono); font-size: .72rem; color: var(--accent3);
+}
+
+/* ---------- Tables ---------- */
+.table-wrap { overflow-x: auto; overflow-y: auto; max-height: 620px; margin: 1.4rem 0; border-top: 1px solid var(--ink); }
+table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+thead th {
+  text-align: left; font-weight: 700; font-size: .74rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted); padding: .8rem .9rem .8rem 0;
+  border-bottom: 1px solid var(--rule); vertical-align: bottom; white-space: nowrap;
+}
+tbody td { padding: .8rem .9rem .8rem 0; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.65; }
+tbody tr:last-child td { border-bottom: 1px solid var(--ink); }
+td.num, th.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; text-align: right; padding-right: 0; }
+td.cross { color: #A79C89; font-weight: 700; text-align: center; }
+td .sub { display: block; font-size: .76rem; color: var(--muted); margin-top: .2rem; }
+
+/* ---------- Cards / callouts ---------- */
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 1.6rem 0; }
+.grid-3 .cell { background: var(--bg); padding: 1.3rem 1.2rem; }
+.grid-3 .cell .tag {
+  font-family: var(--font-mono); font-size: .62rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--accent); display: block; margin-bottom: .55rem;
+}
+.grid-3 .cell h4 { margin: 0 0 .4rem; font-size: .98rem; color: var(--ink); }
+.grid-3 .cell p { font-size: .84rem; color: var(--muted); line-height: 1.7; text-align: left; }
+
+.quote {
+  margin: 2.2rem 0; padding: 1.6rem 0 1.6rem 1.4rem; border-left: 2px solid var(--accent2);
+  font-family: var(--font-serif); font-size: 1.3rem; line-height: 1.7; color: var(--accent2);
+}
+.quote cite { display: block; font-family: var(--font-mono); font-size: .66rem; letter-spacing: .16em; font-style: normal; color: var(--muted); margin-top: .8rem; text-transform: uppercase; }
+
+.figures { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--rule); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); margin: 2rem 0; }
+.figures div { background: var(--bg); padding: 1.3rem 1.2rem; }
+.figures .k { font-family: var(--font-mono); font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.figures .v { font-family: var(--font-serif); font-size: 1.55rem; line-height: 1.3; margin-top: .4rem; color: var(--ink); }
+.figures .v small { font-family: var(--font-sans); font-size: .74rem; color: var(--muted); display: block; margin-top: .3rem; }
+
+.chart-figure { margin: 2.2rem 0; }
+.chart-figure figcaption {
+  font-size: .76rem; font-family: var(--font-mono); letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: .7rem;
+  border-bottom: 1px solid var(--rule); padding-bottom: .5rem;
+}
+
+/* ---------- Roadmap ---------- */
+.phases { margin: 2rem 0; border-top: 1px solid var(--ink); }
+.phase { display: grid; grid-template-columns: 96px 1fr; gap: 1.6rem; padding: 1.4rem 0; border-bottom: 1px solid var(--rule); }
+.phase:last-child { border-bottom: 1px solid var(--ink); }
+.phase .wk {
+  font-family: var(--font-mono); font-size: .68rem; letter-spacing: .1em;
+  color: var(--accent); padding-top: .3rem;
+}
+.phase .wk em { display: block; font-style: normal; color: var(--muted); font-size: .62rem; margin-top: .2rem; }
+.phase h4 { margin: 0 0 .5rem; font-size: 1rem; color: var(--ink); }
+.phase ul.plain { margin: .4rem 0 0; }
+.phase ul.plain > li { font-size: .86rem; margin-bottom: .3rem; color: #37312A; }
+
+/* ---------- Signature / footer ---------- */
+.closing { margin-top: 5rem; padding: 2.4rem 0 0; border-top: 1px solid var(--ink); }
+.closing h2 { font-family: var(--font-serif); font-size: 1.9rem; font-weight: 400; margin-bottom: 1rem; }
+footer.doc-footer { margin-top: 4rem; border-top: 1px solid var(--rule); padding-top: 1.6rem; }
+footer.doc-footer h2 {
+  font-family: var(--font-mono); font-size: .66rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--muted); font-weight: 400; margin-bottom: 1rem;
+}
+footer .sources ol { padding-left: 1.2rem; font-size: .8rem; color: var(--muted); }
+footer .sources li { margin-bottom: .55rem; overflow-wrap: break-word; word-break: break-all; }
+footer .sources .src-title { color: var(--ink); word-break: normal; }
+footer .sources .src-url { display: block; margin-top: .15rem; font-size: .78rem; color: var(--accent); word-break: break-all; }
+footer .colophon { margin-top: 2rem; font-family: var(--font-mono); font-size: .64rem; letter-spacing: .1em; color: var(--muted); line-height: 2; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 720px) {
+  body { font-size: 15px; }
+  article.page { padding: 0 1.1rem 4rem; }
+  .cover { padding: 2rem 1.2rem 1.8rem; min-height: auto; }
+  .cover-facts { grid-template-columns: repeat(2, 1fr); }
+  .cover-facts div { border-bottom: 1px solid rgba(242,237,227,.12); padding: .9rem .8rem .9rem 0; }
+  .docmeta { grid-template-columns: 1fr; }
+  .docmeta div { padding: .8rem 0; border-bottom: 1px solid var(--rule); }
+  .docmeta div:last-child { border-bottom: none; }
+  .toc ol { columns: 1; }
+  .grid-3 { grid-template-columns: 1fr; }
+  .figures { grid-template-columns: 1fr; }
+  .phase { grid-template-columns: 1fr; gap: .6rem; }
+  .table-wrap { max-height: none; }
+  table { min-width: 520px; font-size: .84rem; }
+  .quote { font-size: 1.1rem; }
+}
+
+/* ---------- Print ---------- */
+@page { size: A4; margin: 16mm 15mm; }
+@media print {
+  html { font-size: 10.5pt; }
+  body { background: #fff; line-height: 1.7; }
+  article.page { max-width: none; padding: 0; }
+  .cover {
+    min-height: 0; height: 265mm; padding: 18mm 14mm; page-break-after: always;
+    background: #0E0D0B !important; color: #F2EDE3 !important;
+  }
+  .cover h1 { font-size: 82pt; }
+  .toc { page-break-after: always; }
+  .chapter { page-break-before: always; margin-top: 0; }
+  .chart-figure, .figures, .table-wrap, .phase, .grid-3 { page-break-inside: avoid; }
+  .table-wrap { max-height: none; overflow: visible; }
+  footer.doc-footer { page-break-before: always; }
+  a { color: var(--ink); border-bottom: none; }
+  footer .sources .src-url { color: var(--accent); }
+}
+</style>
+</head>
+<body>
+
+<!-- ================= COVER ================= -->
+<section class="cover">
+  <div class="cover-top">
+    <span>BITCONG · COMMUNITY MEME</span>
+    <span>WHITEPAPER V1.0</span>
+  </div>
+
+  <div class="cover-main">
+    <p class="kicker">Solana · SPL Token · BCONG</p>
+    <h1>比特聪</h1>
+    <p class="cover-en">BitCong</p>
+    <p class="cover-line">
+      一聪虽小，共识无限。
+      <span>ONE SATOSHI. ONE COMMUNITY.</span>
+    </p>
+  </div>
+
+  <div>
+    <dl class="cover-facts">
+      <div>
+        <dt>固定总量</dt>
+        <dd>2,100,000,000,000,000<em>2.1 × 10¹⁵</em></dd>
+      </div>
+      <div>
+        <dt>代币代码</dt>
+        <dd>BCONG<em>SPL TOKEN</em></dd>
+      </div>
+      <div>
+        <dt>发行网络</dt>
+        <dd>Solana<em>MAINNET-BETA</em></dd>
+      </div>
+      <div>
+        <dt>增发权限</dt>
+        <dd>发行后撤销<em>TARGET · NO MINT</em></dd>
+      </div>
+    </dl>
+    <div class="cover-foot">
+      <span>2026.10 · 讨论稿 · 正式发行前须经法律顾问审核</span>
+      <span>本文件不构成投资建议、要约或任何形式的承诺</span>
+    </div>
+  </div>
+</section>
+
+<article class="page">
+
+  <!-- ================= 文件元信息 ================= -->
+  <dl class="docmeta">
+    <div>
+      <dt>文件版本</dt>
+      <dd>V1.0（讨论稿）</dd>
+    </div>
+    <div>
+      <dt>发布日期</dt>
+      <dd>2026 年 10 月</dd>
+    </div>
+    <div>
+      <dt>文件性质</dt>
+      <dd>社区公开说明</dd>
+    </div>
+  </dl>
+
+  <div class="notice">
+    <span class="label">Reader's note · 阅读须知</span>
+    <p>本文件用于说明比特聪（BitCong）项目的定位、代币参数、技术方案、社区规则与发行前置条件，面向愿意了解并参与社区讨论的读者。</p>
+    <p>本文件<strong>不构成任何投资建议、投资要约、收益承诺或价格承诺</strong>，也不构成在任何司法辖区募集资金的行为。BCONG 为社区 Meme 代币，不具备任何本金保障，价格可能归零。</p>
+    <p>V1.0 为讨论稿。所有涉及发行、分配与法律安排的内容，均须经具备资质的法律顾问逐项审查后，方可在正式版本中确认。</p>
+  </div>
+
+  <!-- ================= 目录 ================= -->
+  <nav class="toc">
+    <h2>Contents · 目录</h2>
+    <ol>
+      <li><a href="#c01"><span class="n">01</span><span>摘要：一页读懂</span></a></li>
+      <li><a href="#c02"><span class="n">02</span><span>起源：从 2100 万到 2100 万亿</span></a></li>
+      <li><a href="#c03"><span class="n">03</span><span>定位：是什么，不是什么</span></a></li>
+      <li><a href="#c04"><span class="n">04</span><span>代币参数与分配结构</span></a></li>
+      <li><a href="#c05"><span class="n">05</span><span>技术与钱包架构</span></a></li>
+      <li><a href="#c06"><span class="n">06</span><span>社区运营：只做三件事</span></a></li>
+      <li><a href="#c07"><span class="n">07</span><span>发行流程与五道验收门</span></a></li>
+      <li><a href="#c08"><span class="n">08</span><span>路线图：4 周准备 + 4 周验证</span></a></li>
+      <li><a href="#c09"><span class="n">09</span><span>风险与合规</span></a></li>
+      <li><a href="#c10"><span class="n">10</span><span>透明度承诺</span></a></li>
+      <li><a href="#c11"><span class="n">11</span><span>待决事项与下一步</span></a></li>
+    </ol>
+  </nav>
+
+  <!-- ================= 01 摘要 ================= -->
+  <section class="chapter" id="c01">
+    <div class="chapter-head">
+      <span class="n">01</span>
+      <h2>摘要：一页读懂</h2>
+      <span class="en">Executive Summary</span>
+    </div>
+
+    <p class="lead">比特聪是一个基于 Solana 的比特币文化社区 Meme 项目。它不建设公链，不做 DeFi，不做支付网络，也不在第一阶段开发任何复杂产品。<strong>它只做四件事：品牌、代币、流动性池、社区。</strong></p>
+
+    <ol class="plain">
+      <li><strong>总量等于全部比特币的「聪」。</strong>比特币上限 2,100 万枚，每枚可分割为 1 亿聪，两者相乘正好是 2,100 万亿聪——这就是 BCONG 的固定总量 2,100,000,000,000,000。</li>
+      <li><strong>发行即放弃权力（目标状态）。</strong>铸造与冻结权限在发行后撤销，元数据锁定，全部分配地址公开。以上均为待链上验证的目标，在真实部署完成前不对外声称已实现。</li>
+      <li><strong>分配结构只有四份。</strong>社区 60%、流动性 20%、团队 10%、社区金库 10%。不做动态空投、不做矿机 NFT、不做回购销毁。</li>
+      <li><strong>社区优先于增长数字。</strong>早期不追求钱包地址数量，只关心有多少真实的人愿意长期参与讨论与内容产出。</li>
+      <li><strong>发行是审查结果，不是时间表。</strong>法律、技术、资金、运营四项验收未通过，就不进入 TGE。</li>
+    </ol>
+
+    <div class="figures">
+      <div>
+        <div class="k">Total Supply</div>
+        <div class="v">2,100 万亿<small>2100 万枚 BTC × 1 亿聪</small></div>
+      </div>
+      <div>
+        <div class="k">Community Share</div>
+        <div class="v">60%<small>公开规则 · 分阶段释放</small></div>
+      </div>
+      <div>
+        <div class="k">Team Vesting</div>
+        <div class="v">6 + 18<small>拟：锁仓 6 个月 + 18 个月线性，尚未上链</small></div>
+      </div>
+      <div>
+        <div class="k">Launch Gate</div>
+        <div class="v">4 / 4<small>四项验收全部通过才发行</small></div>
+      </div>
+    </div>
+
+    <div class="quote">
+      先做品牌，再做社区，然后发行，最后才是生态。
+      <cite>BitCong Design Principle</cite>
+    </div>
+  </section>
+
+  <!-- ================= 02 起源 ================= -->
+  <section class="chapter" id="c02">
+    <div class="chapter-head">
+      <span class="n">02</span>
+      <h2>起源：从 2100 万到 2100 万亿</h2>
+      <span class="en">Origin Story</span>
+    </div>
+
+    <h3>一个匿名者留下的三个数字</h3>
+    <p>2008 年，一个署名「中本聪」的人发布了一份九页的论文，提出一种不依赖任何中心机构的电子现金系统。2009 年 1 月，创世区块被挖出，第一句话写在区块里：<em>Chancellor on brink of second bailout for banks</em>。</p>
+    <p>此后十七年，这套系统沉淀出三个被反复引用的数字：<strong>2100 万</strong>（总量上限）、<strong>1 亿</strong>（每枚可分割的最小单位数量）、<strong>21,000,000 × 100,000,000 = 2,100 万亿</strong>（全网聪的总数）。</p>
+    <p>第三个数字几乎没有人提起。它不是被设计出来的上限，而是一个乘法的结果——比特币世界里真正的最小单位，从来不是「一枚」，而是「一聪」。</p>
+
+    <h3>为什么是「聪」</h3>
+    <p>「聪」（satoshi）是比特币的最小计量单位，1 聪 = 0.00000001 BTC。它有一个特殊的位置：<strong>绝大多数人永远不会持有一整枚比特币，但每个人都可以持有一聪。</strong></p>
+    <p>它也是比特币文化里最容易被忽略的部分——没有仪表盘上的 K 线，没有交易所的报价，它只是账本最后一位数字的变化。但正是这一位，让比特币可以被无限细分、被普通人持有、被用于最小规模的协作。</p>
+
+    <div class="quote">
+      一聪虽小，共识无限。
+      <cite>One Satoshi. One Community.</cite>
+    </div>
+
+    <h3>比特聪要承接的是什么</h3>
+    <p>比特聪不继承比特币的技术，也不声称与比特币存在任何官方关联。它承接的只有<strong>文化</strong>：对绝对稀缺的尊重、对中心化增发的警惕、对「小单位也有意义」的认同。</p>
+    <p>把总量设定为 2,100 万亿，是把比特币世界的最小单位总数，变成一个可以被完整持有、也可以被无限细分的社区符号。这不是技术设计，而是一个叙事选择——所有数字都能在链上对照，所有解释都不需要信任任何中间人。</p>
+  </section>
+
+  <!-- ================= 03 定位 ================= -->
+  <section class="chapter" id="c03">
+    <div class="chapter-head">
+      <span class="n">03</span>
+      <h2>定位：是什么，不是什么</h2>
+      <span class="en">Positioning</span>
+    </div>
+
+    <p class="lead">一句话定义：<strong>基于 Solana 的比特币文化社区 Meme 项目。</strong></p>
+    <p>这个定义里每个词都有边界。「Meme」意味着它由社区共识与传播驱动，不承诺任何应用价值；「文化社区」意味着它的价值来自人，而不是功能；「基于 Solana」只是技术选型，不构成任何背书。</p>
+
+    <h3>它不是的东西</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="width:30%">常被误认为</th><th>比特聪的实际态度</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>比特币的分叉或侧链</td><td>不是。与比特币网络无任何技术关联，不受比特币社区背书。</td></tr>
+          <tr><td>公链 / L2 / 基础设施</td><td>不是。不发行自己的链，只发行一枚 SPL Token。</td></tr>
+          <tr><td>DeFi 协议 / 收益产品</td><td>不是。不提供质押收益、不承诺任何回报、不设资金池生息。</td></tr>
+          <tr><td>微支付生态通证</td><td>暂时不是。目前没有真实的微支付产品或场景，不用「Utility」标签制造应用预期。</td></tr>
+          <tr><td>投资标的</td><td>不是。项目方不提供任何价格预期、不做市值管理、不做回购护盘。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>为什么选择 Solana</h3>
+    <div class="grid-3">
+      <div class="cell">
+        <span class="tag">Cost</span>
+        <h4>发行成本可忽略</h4>
+        <p>创建代币、撤销权限、建立流动性池的手续费以美分计，一个人即可完成全部部署。</p>
+      </div>
+      <div class="cell">
+        <span class="tag">Standard</span>
+        <h4>标准成熟可验证</h4>
+        <p>SPL Token 与 Metaplex 元数据是公开标准，权限状态可在浏览器上直接核验。</p>
+      </div>
+      <div class="cell">
+        <span class="tag">Liquidity</span>
+        <h4>公开交易设施完备</h4>
+        <p>Raydium、Meteora 等公开 AMM 让任何人都能自行验证流动性池与 LP 凭证。</p>
+      </div>
+    </div>
+
+    <p>选择 Solana 的唯一理由是<strong>低门槛与可验证性</strong>：一个不具备开发团队的项目，也应该能够让任何人独立核对「总量是否固定」「权限是否撤销」「池子里到底有多少钱」。</p>
+
+    <h3>为什么第一阶段不做产品</h3>
+    <p>社区 Meme 项目最常见的失败方式，不是没有功能，而是<strong>在共识形成之前就把资源消耗在功能上</strong>。开发一套积分系统需要数月，上线后立刻面对羊毛党；做一套空投合约，需要额外审计；搭一套账户体系，就意味着要处理用户数据与合规。</p>
+    <p>第一阶段的判断标准很简单：<strong>如果一件事不能让陌生人在三十秒内理解并愿意参与讨论，它就不该在这一阶段做。</strong></p>
+  </section>
+
+  <!-- ================= 04 代币 ================= -->
+  <section class="chapter" id="c04">
+    <div class="chapter-head">
+      <span class="n">04</span>
+      <h2>代币参数与分配结构</h2>
+      <span class="en">Tokenomics</span>
+    </div>
+
+    <h3>基本参数</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="width:28%">参数</th><th>取值</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>中文名称</td><td>比特聪</td><td>—</td></tr>
+          <tr><td>英文名称</td><td>BitCong</td><td>—</td></tr>
+          <tr><td>代币代码</td><td><span class="mono">BCONG</span></td><td>发行前需完成链上与市场同名代币查重</td></tr>
+          <tr><td>发行网络</td><td>Solana Mainnet-Beta</td><td>—</td></tr>
+          <tr><td>代币标准</td><td>SPL Token + Metaplex Metadata</td><td>使用公开标准，不自行编写合约</td></tr>
+          <tr><td>固定总量</td><td class="mono">2,100,000,000,000,000</td><td>永久固定，等于全网比特币聪的总数</td></tr>
+          <tr><td>小数位</td><td class="mono">0</td><td>最小单位即 1 BCONG（受 u64 上限约束，可取值 0–3）</td></tr>
+          <tr><td>铸造权限</td><td>目标：发行后撤销</td><td>撤销后无法再增发；须公开链上证据，未部署前不声称已实现</td></tr>
+          <tr><td>冻结权限</td><td>目标：发行后撤销</td><td>任何地址的代币不可被冻结；同样以链上状态为准</td></tr>
+          <tr><td>元数据权限</td><td>目标：发行后移交或锁定</td><td>防止名称、图标被事后篡改</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>关于小数位为什么必须是 0–3</h4>
+    <p>SPL Token 的链上总量字段是无符号 64 位整数，上限约 1.84 × 10¹⁹ 个最小单位。当总量为 2.1 × 10¹⁵ 时，小数位每增加一位，最小单位总数就乘以 10：小数位 3 时约 2.1 × 10¹⁸（可容纳），小数位 4 时约 2.1 × 10¹⁹（<strong>溢出，无法部署</strong>）。</p>
+    <p>因此<strong>建议取 0 位小数</strong>：1 BCONG 就是最小单位，与「一聪」的叙事完全对应，也避免用户在小数位上产生误解。</p>
+
+    <h3>分配结构</h3>
+    <p>总量分为四份，每一份对应一个明确的功能，不多设任何预留科目。</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="width:22%">分配</th><th class="num" style="width:12%">比例</th><th class="num" style="width:26%">数量</th><th>用途与管理</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>社区分配</td>
+            <td class="num">60%</td>
+            <td class="num">1,260,000,000,000,000</td>
+            <td>面向真实参与者的公开分配，规则先行、链上可查，不做无门槛薅取<span class="sub">按阶段释放，未分配部分处置规则须提前公布</span></td>
+          </tr>
+          <tr>
+            <td>流动性</td>
+            <td class="num">20%</td>
+            <td class="num">420,000,000,000,000</td>
+            <td>建立公开交易池，实际配入的 SOL 金额与 LP 处置方式另行披露</td>
+          </tr>
+          <tr>
+            <td>团队</td>
+            <td class="num">10%</td>
+            <td class="num">210,000,000,000,000</td>
+            <td>公开钱包地址，锁仓 6 个月，随后 18 个月线性释放</td>
+          </tr>
+          <tr>
+            <td>社区金库</td>
+            <td class="num">10%</td>
+            <td class="num">210,000,000,000,000</td>
+            <td>2/3 多签管理，用于开发、维护与社区活动，支出公开</td>
+          </tr>
+          <tr>
+            <td><strong>合计</strong></td>
+            <td class="num"><strong>100%</strong></td>
+            <td class="num"><strong>2,100,000,000,000,000</strong></td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <figure class="chart-figure">
+      <figcaption>图 1 · 代币分配结构 / Token Allocation</figcaption>
+      <div id="chart-alloc" style="width:100%;min-height:260px"></div>
+    </figure>
+
+    <h3>四份份额各自遵守的规则</h3>
+
+    <h4>社区分配 · 60%</h4>
+    <p>这 60% 不需要在第一天全部发出，而是一份<strong>公开的长期分配额度</strong>。V1.0 确认以下五条原则，具体细则在发行前单独公布：</p>
+    <ul class="plain">
+      <li><strong>规则先行。</strong>任何一次分配活动的规则必须提前公布，且不得追溯修改。</li>
+      <li><strong>不做无门槛领取。</strong>不设「注册即领」「分享即领」类活动，避免羊毛党消耗额度。</li>
+      <li><strong>优先真实参与者。</strong>内容贡献、长期参与、开发者与志愿者的权重高于单纯持币。</li>
+      <li><strong>未分配部分不归团队。</strong>剩余额度的处置方式必须事先写明（回流金库或按公布规则处理），团队不得自行支配。</li>
+      <li><strong>每次分配可核验。</strong>公布标准、名单摘要与链上交易，接受社区复核。</li>
+    </ul>
+
+    <h4>流动性 · 20%</h4>
+    <p>用于在公开 AMM 建立 BCONG/SOL 交易池。<strong>实际配入多少 SOL、池子建在哪里、LP 凭证如何处理，全部在发行前公布</strong>。不预设「销毁 70% / 锁定 30%」这类比例，因为不同池型的 LP 凭证机制不同，更重要的是处置方式透明、团队无法暗中取回。</p>
+
+    <h4>团队 · 10%</h4>
+    <p><strong>拟：</strong>锁仓 6 个月，随后 18 个月线性释放，解锁地址与时间表提前公布。该规则目前只是设计安排，<strong>尚未上链</strong>；正式采用前须公布锁仓工具、受益地址与释放时间表，并以链上状态为准。<strong>团队份额与个人资产完全分开</strong>，团队钱包地址作为项目公开信息的一部分长期披露。</p>
+
+    <figure class="chart-figure">
+      <figcaption>图 2 · 团队份额解锁节奏（拟，尚未上链）/ Planned Vesting Schedule</figcaption>
+      <div id="chart-vesting" style="width:100%;min-height:320px"></div>
+    </figure>
+
+    <h4>社区金库 · 10%</h4>
+    <p>由 2/3 多签管理，签署人身份公开，其中至少一位为社区代表。用于服务器、域名、设计、审计与社区活动等必要支出，每笔支出公开用途与交易哈希。</p>
+
+    <h3>明确取消的机制</h3>
+    <p>以下机制在原方案中存在，V1.0 决定全部删除。理由统一：<strong>它们增加理解成本，却不能在共识形成前提供任何真实价值。</strong></p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="width:34%">已取消机制</th><th>原因</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>动态衰减空投</td><td>规则复杂、难以解释，且客观上鼓励抢跑而非长期参与。</td></tr>
+          <tr><td>未领取自动销毁</td><td>人为制造通缩，与「总量固定即足够」的原则冲突。</td></tr>
+          <tr><td>积分系统与积分销毁</td><td>开发成本高、易被刷量，属于第二阶段之后再评估的内容。</td></tr>
+          <tr><td>矿机 NFT / 盲盒</td><td>与比特币文化无关，属于借壳玩法，损害品牌一致性。</td></tr>
+          <tr><td>回购销毁 / 交易手续费抽成</td><td>需要持续资金投入，且容易被理解为价格操纵。</td></tr>
+          <tr><td>做市与护盘</td><td>合规风险高，且会制造「项目方托底」的错误预期。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= 05 技术 ================= -->
+  <section class="chapter" id="c05">
+    <div class="chapter-head">
+      <span class="n">05</span>
+      <h2>技术与钱包架构</h2>
+      <span class="en">Technology &amp; Wallets</span>
+    </div>
+
+    <p class="lead">第一阶段的技术架构只有三个核心组件，全部使用公开标准与成熟工具，<strong>不编写任何自定义合约</strong>。</p>
+
+    <div class="grid-3">
+      <div class="cell">
+        <span class="tag">01 · Website</span>
+        <h4>官网</h4>
+        <p>项目介绍、代币参数、风险提示、官方链接。唯一官方信息入口，静态页面即可。</p>
+      </div>
+      <div class="cell">
+        <span class="tag">02 · Token</span>
+        <h4>SPL Token</h4>
+        <p>固定总量、Metaplex 元数据、发行后撤销铸造与冻结权限。</p>
+      </div>
+      <div class="cell">
+        <span class="tag">03 · Community</span>
+        <h4>社区 + 流动性池</h4>
+        <p>Telegram 承载交流与公告；公开 AMM 交易池承载流通。</p>
+      </div>
+    </div>
+
+    <h3>第一阶段明确不做</h3>
+    <p>以下组件在原方案中都有规划，V1.0 全部推迟。它们不是不重要，而是<strong>在没有真实需求之前上线，只会增加攻击面与运维负担</strong>。</p>
+    <ul class="plain">
+      <li>PostgreSQL / Redis / BullMQ 等后端基础设施</li>
+      <li>Helius 等付费 RPC 服务（先用公开 RPC 与浏览器核验）</li>
+      <li>自建交易机器人、自建空投合约、自建 Merkle 分发系统</li>
+      <li>独立用户账户体系、TG Mini App、Bot 产品化</li>
+      <li>任何形式的资金托管或代客操作</li>
+    </ul>
+
+    <h3>三类钱包</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="width:20%">钱包</th><th style="width:30%">用途</th><th>管理方式</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>部署钱包</td><td>创建代币、支付手续费、执行权限撤销</td><td>临时使用，完成后清空余额，不与任何长期资产混用</td></tr>
+          <tr><td>团队钱包</td><td>接收团队份额</td><td>地址公开，锁仓 6 个月 + 18 个月线性释放</td></tr>
+          <tr><td>社区金库</td><td>接收金库份额与项目支出</td><td>2/3 Squads 多签，签署人身份公开</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small">三类钱包的职责互不重叠。创始人个人资产与项目资产必须完全分开，禁止使用同一地址或同一助记词。</p>
+
+    <h3>发行后应完成的权限动作（目标状态）</h3>
+    <ol class="plain">
+      <li><strong>撤销铸造权限（Mint Authority）。</strong>链上确认后，任何人都无法再增发。</li>
+      <li><strong>撤销冻结权限（Freeze Authority）。</strong>任何地址的持仓不可被项目方冻结。</li>
+      <li><strong>处理元数据更新权限。</strong>锁定或移交，防止名称、符号、图标被事后修改。</li>
+      <li><strong>公开全部分配地址。</strong>四份份额各对应哪些地址，逐条列出。</li>
+    </ol>
+    <p>四项动作完成后，在 Solscan 上应当可以直接看到：总量恒定、无权增发、无权冻结。<strong>任何人不需要信任项目方，只需要打开浏览器。</strong></p>
+
+    <h3>安全规范</h3>
+    <ul class="plain">
+      <li>助记词与私钥<strong>离线纸质保存</strong>，不进入任何服务器、代码仓库、云笔记或聊天记录。</li>
+      <li>部署在独立环境完成，使用小额测试先在 devnet 走通全流程。</li>
+      <li>官网与社交媒体启用双因素认证，域名开启注册商锁与转移保护。</li>
+      <li>任何以「官方」名义索要私钥、助记词、签名或转账的行为，均为诈骗。</li>
+    </ul>
+  </section>
+
+  <!-- ================= 06 社区 ================= -->
+  <section class="chapter" id="c06">
+    <div class="chapter-head">
+      <span class="n">06</span>
+      <h2>社区运营：只做三件事</h2>
+      <span class="en">Community Operations</span>
+    </div>
+
+    <p class="lead">不做增长飞轮，不做裂变任务，不买流量。先把三个渠道做扎实。</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="width:24%">渠道</th><th style="width:30%">核心工作</th><th>定位</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>X（Twitter）</td><td>全球品牌传播</td><td>面向外部，以英文为主、内容节奏稳定</td></tr>
+          <tr><td>Telegram</td><td>社区交流与公告</td><td>面向内部，公告与讨论分离，公告不可被刷屏淹没</td></tr>
+          <tr><td>官网</td><td>唯一官方信息入口</td><td>所有参数、地址、公告以官网为准，拒绝二手转述</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>日常只做三件事</h3>
+    <ol class="plain">
+      <li><strong>每天一条内容。</strong>围绕比特币文化或比特聪主题，不追热点、不做价格评论。</li>
+      <li><strong>每周一次活动。</strong>话题讨论、问答、内容征集，形式简单，能在 Telegram 内完成。</li>
+      <li><strong>持续公开进度。</strong>开发进展、资金使用、分配执行，按固定节奏披露。</li>
+    </ol>
+
+    <h3>第一批内容选题</h3>
+    <p>以下四个选题既是传播素材，也是项目叙事的骨架。它们不依赖任何产品功能，现在就可以开始写。</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="width:38%">选题</th><th>核心问题</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>中本聪为什么匿名</td><td>一个匿名创造者如何改变了数字货币的历史，又为何选择消失。</td></tr>
+          <tr><td>2100 万枚背后的稀缺性文化</td><td>固定上限为什么是一种文化选择，而不只是技术参数。</td></tr>
+          <tr><td>「聪」这个单位的意义</td><td>一个很小的单位，为什么值得被单独讨论。</td></tr>
+          <tr><td>为什么要做比特聪</td><td>一个由社区参与、没有产品承诺的 Meme 实验，凭什么值得参与。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>早期该看什么指标</h3>
+    <p>不看钱包地址数，不看推特粉丝数。<strong>只看三个能反映真实参与的信号：</strong></p>
+    <ul class="plain">
+      <li><strong>有效对话量。</strong>Telegram 中与主题相关、非机器人、非「to the moon」的发言数量。</li>
+      <li><strong>持续参与率。</strong>连续四周出现的活跃成员占比，而不是单次活动的峰值人数。</li>
+      <li><strong>自发产出。</strong>社区成员主动创作的图文、翻译、讨论帖数量——这是 Meme 项目唯一真实的资产。</li>
+    </ul>
+    <p>如果三个月后这三项都没有起色，正确的结论是<strong>叙事或人群选错了</strong>，而不是「投放不够」。</p>
+  </section>
+
+  <!-- ================= 07 发行 ================= -->
+  <section class="chapter" id="c07">
+    <div class="chapter-head">
+      <span class="n">07</span>
+      <h2>发行流程与五道验收门</h2>
+      <span class="en">Launch Process</span>
+    </div>
+
+    <p class="lead">不自研发币系统，全部使用成熟工具与公开标准。整个流程压缩为五步，每一步都有可验证的验收结果。</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="width:8%">步骤</th><th style="width:28%">工作</th><th>验收结果</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="mono">01</td><td>创建代币</td><td>拿到链上 Mint 地址，公之于众</td></tr>
+          <tr><td class="mono">02</td><td>设置总量与元数据</td><td>总量与白皮书一致，Logo 与名称在钱包中正常显示</td></tr>
+          <tr><td class="mono">03</td><td>撤销铸造与冻结权限</td><td>链上验证：不可增发、不可冻结</td></tr>
+          <tr><td class="mono">04</td><td>公开分配与锁仓</td><td>四类地址可查询，锁仓合约或托管方式可验证</td></tr>
+          <tr><td class="mono">05</td><td>建立流动性池</td><td>交易池地址、注入金额、LP 凭证处置方式全部公开</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>推荐工具栈</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="width:26%">环节</th><th style="width:30%">工具</th><th>作用</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>代币创建</td><td>Solana SPL Token</td><td>官方标准，权限状态可链上核验</td></tr>
+          <tr><td>元数据</td><td>Metaplex Metadata</td><td>名称、符号、图标、描述的标准载体</td></tr>
+          <tr><td>多签</td><td>Squads</td><td>社区金库 2/3 多签，签署人公开</td></tr>
+          <tr><td>流动性</td><td>Raydium / Meteora</td><td>公开 AMM，池子与 LP 凭证可外部验证</td></tr>
+          <tr><td>核验</td><td>Solscan</td><td>任何人可自行查看总量、权限与持仓</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>五道验收门（Go / No-Go）</h3>
+    <p>发行不是路线图的终点，而是五项检查同时通过后的结果。<strong>任何一项未通过，发行延期，不设补偿性时间表。</strong></p>
+    <ol class="plain">
+      <li><strong>法律门。</strong>法律顾问出具书面意见，确认发行主体、代币性质、分发方式与目标辖区不存在明确禁止性规定；不向中国大陆境内居民募集资金。</li>
+      <li><strong>技术门。</strong>devnet 全流程演练通过，权限撤销、元数据锁定、分配转账均在测试环境验证。</li>
+      <li><strong>资金门。</strong>流动性所需的 SOL 全部到位且来源合法、可解释；金库多签钱包建立并完成签名测试。</li>
+      <li><strong>运营门。</strong>官网、X、Telegram 三渠道就绪；风险提示、免责声明、官方链接清单上线。</li>
+      <li><strong>信息门。</strong>白皮书终版、分配地址清单、锁仓时间表、LP 处置方案全部公开，且与链上一致。</li>
+    </ol>
+
+    <div class="notice">
+      <span class="label">关于 LP 处置</span>
+      <p>流动性池的 LP 凭证不预设固定销毁比例。不同 AMM 的凭证机制不同（LP Token、NFT 头寸、集中流动性头寸），机械套用比例既无意义也无法执行。V1.0 只确认一条原则：<strong>LP 的实际控制权与处置方式必须在建池前公开，并在建池后可以被第三方验证。</strong></p>
+    </div>
+  </section>
+
+  <!-- ================= 08 路线图 ================= -->
+  <section class="chapter" id="c08">
+    <div class="chapter-head">
+      <span class="n">08</span>
+      <h2>路线图：4 周准备 + 4 周验证</h2>
+      <span class="en">Roadmap</span>
+    </div>
+
+    <p class="lead">以下时间是工作安排，不是发行承诺。第 5–8 周是否启动，取决于第 4 周末的五道验收门。</p>
+
+    <div class="phases">
+      <div class="phase">
+        <div class="wk">WEEK 01<em>品牌与规则</em></div>
+        <div>
+          <h4>把定义写死</h4>
+          <ul class="plain">
+            <li>确认名称、标识、代币代码，完成链上与市场同名代币查重</li>
+            <li>完成白皮书 V1.0，明确总量、分配与规则</li>
+            <li>确定钱包架构与地址规划</li>
+            <li>启动法律合规审查（不完成不进入发行）</li>
+          </ul>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="wk">WEEK 02<em>基础设施</em></div>
+        <div>
+          <h4>让信息公开可查</h4>
+          <ul class="plain">
+            <li>官网上线：介绍、参数、风险提示、官方链接</li>
+            <li>建立 X 与 Telegram，公告频道与讨论群分开</li>
+            <li>发布项目介绍与第一篇文化内容</li>
+            <li>建立多签金库，公开签署人</li>
+          </ul>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="wk">WEEK 03<em>社区测试</em></div>
+        <div>
+          <h4>验证叙事是否成立</h4>
+          <ul class="plain">
+            <li>按四选题发布内容，观察真实反馈</li>
+            <li>邀请早期参与者讨论规则，收集团队外意见</li>
+            <li>对官网与社群做安全检查（防钓鱼、防仿冒）</li>
+            <li>记录有效对话量与持续参与率</li>
+          </ul>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="wk">WEEK 04<em>发行准备</em></div>
+        <div>
+          <h4>把风险处理在链下</h4>
+          <ul class="plain">
+            <li>devnet 完整演练：创建、撤销权限、分配、建池</li>
+            <li>确认分配地址清单与锁仓时间表</li>
+            <li>确认流动性金额与 LP 处置方案</li>
+            <li>五道验收门评审，形成书面结论</li>
+          </ul>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="wk">WEEK 05–08<em>条件性启动</em></div>
+        <div>
+          <h4>通过才执行，不通过就停</h4>
+          <ul class="plain">
+            <li>在合规允许的前提下执行发行，公布链上信息</li>
+            <li>按公开规则执行社区分配，逐笔披露</li>
+            <li>持续内容运营，观察真实参与度而非价格</li>
+            <li>若验收未通过，延期并公开说明原因</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 09 风险与合规 ================= -->
+  <section class="chapter" id="c09">
+    <div class="chapter-head">
+      <span class="n">09</span>
+      <h2>风险与合规</h2>
+      <span class="en">Risk &amp; Compliance</span>
+    </div>
+
+    <p class="lead">这一章不是免责套话，而是项目能否存在的前提。<strong>合规不通过，项目不发行。</strong></p>
+
+    <h3>合规前提</h3>
+    <ul class="plain">
+      <li><strong>不向中国大陆境内居民募集资金。</strong>不进行任何形式的公募、私募、预售或代币融资。</li>
+      <li><strong>不开展法币出入金业务。</strong>项目方不提供任何兑换、托管、代持服务。</li>
+      <li><strong>不承诺任何收益。</strong>不承诺回购、不承诺价格、不承诺流动性深度。</li>
+      <li><strong>法律意见为前置条件。</strong>发行主体、代币定性、分发方式、目标辖区限制，须由具备资质的法律顾问逐项出具书面意见。</li>
+    </ul>
+
+    <div class="notice">
+      <span class="label">需要正视的一点</span>
+      <p>「不向境内居民募资」「设定地理限制」「不做法币通道」并不自动等于合规。境内实际控制人通过境外主体发行代币，也不能当然规避境内监管。<strong>把 ICO 改称 TGE、把代币改称积分，都不是合规措施。</strong></p>
+      <p>本项目在取得法律顾问的书面意见之前，不进行任何形式的代币分发或交易池创建。</p>
+    </div>
+
+    <h3>风险清单</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="width:24%">风险</th><th style="width:34%">具体表现</th><th>应对</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>价格归零</td><td>Meme 代币没有现金流支撑，共识消退后可能失去全部流动性</td><td>白皮书与官网首页明确提示，不承诺任何价格</td></tr>
+          <tr><td>流动性不足</td><td>池子过浅，少量卖单即可造成剧烈波动</td><td>发行前披露注入金额，不夸大深度</td></tr>
+          <tr><td>仿冒与钓鱼</td><td>伪造代币、假官网、假客服索要私钥</td><td>公开唯一 Mint 地址；所有官方入口在官网集中列示</td></tr>
+          <tr><td>监管变化</td><td>辖区政策调整导致分发或交易受限</td><td>不设资金池、不吸收资金，保留随时中止分发的可能</td></tr>
+          <tr><td>社区衰减</td><td>热度退去后无人维护，项目名存实亡</td><td>用持续参与率而非粉丝数评估；不制造虚假繁荣</td></tr>
+          <tr><td>单人运营风险</td><td>核心成员失能导致项目停滞</td><td>金库多签、文档公开、流程可交接</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>本文件不构成什么</h3>
+    <p>本文件不构成证券发行的招股说明、不构成任何形式的投资要约、不构成对代币价格或流动性的承诺、不构成对项目未来功能的法律约束。<strong>文件中所有「将」「计划」「拟」的表述，均为当前意向，可因法律意见或实际情况调整，调整将以公开方式说明。</strong></p>
+  </section>
+
+  <!-- ================= 10 透明度 ================= -->
+  <section class="chapter" id="c10">
+    <div class="chapter-head">
+      <span class="n">10</span>
+      <h2>透明度承诺</h2>
+      <span class="en">Transparency</span>
+    </div>
+
+    <p class="lead">对一个没有产品、没有营收、没有团队的 Meme 项目来说，<strong>透明度就是唯一的信用资产</strong>。</p>
+
+    <h3>发行前必须公开</h3>
+    <ul class="plain">
+      <li>代币 Mint 地址与 Metaplex 元数据地址</li>
+      <li>四类分配对应的钱包地址清单</li>
+      <li>团队份额的锁仓方式与线性释放时间表</li>
+      <li>社区金库的多签地址、签署人与签名阈值</li>
+      <li>流动性注入金额、目标池子与 LP 处置方案</li>
+      <li>社区分配的规则框架与首批执行计划</li>
+    </ul>
+
+    <h3>发行后持续公开</h3>
+    <div class="phase" style="grid-template-columns:110px 1fr">
+      <div class="wk">每 笔 分 配</div>
+      <div><p>公布分配标准、受益范围、数量与链上交易哈希。</p></div>
+    </div>
+    <div class="phase" style="grid-template-columns:110px 1fr">
+      <div class="wk">每 月 一 次</div>
+      <div><p>发布资金与进度说明：金库余额与支出明细、社区分配执行情况、内容与渠道数据。</p></div>
+    </div>
+    <div class="phase" style="grid-template-columns:110px 1fr">
+      <div class="wk">重 大 变 更</div>
+      <div><p>涉及分配规则、金库用途、项目方向的变更，提前公布并说明理由，不接受追溯修改。</p></div>
+    </div>
+
+    <h3>拟写入终版的条款</h3>
+    <p>以下四项计划写入白皮书终版，并在发行后由链上状态固化，事后不可由团队单方面更改。<strong>在真实部署完成之前，它们仍是设计目标，不是已生效的承诺。</strong></p>
+    <ul class="plain">
+      <li>总量固定为 2,100,000,000,000,000，永不增发</li>
+      <li>铸造权限与冻结权限永久撤销</li>
+      <li>团队份额锁仓 6 个月 + 18 个月线性释放</li>
+      <li>社区金库由 2/3 多签控制，团队不单独支配</li>
+    </ul>
+  </section>
+
+  <!-- ================= 11 待决 ================= -->
+  <section class="chapter" id="c11">
+    <div class="chapter-head">
+      <span class="n">11</span>
+      <h2>待决事项与下一步</h2>
+      <span class="en">Open Items &amp; Next Steps</span>
+    </div>
+
+    <p class="lead">V1.0 是讨论稿。以下六项在进入正式版之前必须解决，其中前三项是发行的硬前置。</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="width:6%">#</th><th style="width:26%">待决事项</th><th style="width:14%">优先级</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="mono">1</td>
+            <td>法律意见</td>
+            <td>硬前置</td>
+            <td>发行主体、代币定性、分发方式、辖区限制，需书面意见</td>
+          </tr>
+          <tr>
+            <td class="mono">2</td>
+            <td>代币代码查重</td>
+            <td>硬前置</td>
+            <td>在链上与主流市场检索 BCONG、CONG 及近似名称，确认不构成混淆</td>
+          </tr>
+          <tr>
+            <td class="mono">3</td>
+            <td>社区分配细则</td>
+            <td>硬前置</td>
+            <td>60% 的释放节奏、单次额度、资格标准与剩余额度处置规则</td>
+          </tr>
+          <tr>
+            <td class="mono">4</td>
+            <td>LP 处置方案</td>
+            <td>发行前</td>
+            <td>按所选 AMM 的实际凭证机制确定，明确公开验证方式</td>
+          </tr>
+          <tr>
+            <td class="mono">5</td>
+            <td>品牌资产</td>
+            <td>发行前</td>
+            <td>标识终稿、域名、X 与 Telegram 账号的注册与保护</td>
+          </tr>
+          <tr>
+            <td class="mono">6</td>
+            <td>法律主体与运营人</td>
+            <td>发行前</td>
+            <td>由谁持有域名、账号、金库签署权，需与法律意见一致</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>关于代币代码</h3>
+    <p>V1.0 采用 <span class="mono">BCONG</span>，理由是它与 BitCong 品牌一致、识别度高于单独的 CONG。<strong>但这只是倾向，不是结论</strong>——发行前必须完成链上与市场检索，确认不存在同名或高度近似的代币造成混淆。代码相同不代表不会被误认，反之亦然。</p>
+
+    <h3>文件体系</h3>
+    <p>本白皮书是项目文件体系的第一份。原方案中的十三章操盘手册，压缩为五份文件，各自对应一个明确的使用场景：</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="width:12%">编号</th><th style="width:28%">文件</th><th>用途</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="mono">01</td><td>项目白皮书</td><td>对外介绍：叙事、定位、规则、代币经济（本文件）</td></tr>
+          <tr><td class="mono">02</td><td>技术部署手册</td><td>技术执行：SPL Token、Metadata、钱包、权限撤销</td></tr>
+          <tr><td class="mono">03</td><td>社区运营手册</td><td>日常运营：X、Telegram、内容日历、活动模板</td></tr>
+          <tr><td class="mono">04</td><td>安全透明度手册</td><td>建立信任：多签、锁仓、资金披露、应急响应</td></tr>
+          <tr><td class="mono">05</td><td>发行验收清单</td><td>是否允许启动：法律、技术、资金、运营、信息五项检查</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>接下来 7 天要做的事</h3>
+    <ol class="plain">
+      <li>确认本白皮书 V1.0 的定位与分配结构，形成 V1.1 修订版。</li>
+      <li>启动代币代码查重，输出 BCONG / CONG 的检索结论。</li>
+      <li>完成标识终稿与官网信息架构，准备静态站上线。</li>
+      <li>起草《02 技术部署手册》，在 devnet 走通一次完整演练。</li>
+      <li>寻找法律顾问，明确咨询范围与所需材料清单。</li>
+    </ol>
+  </section>
+
+  <!-- ================= 结尾 ================= -->
+  <section class="closing">
+    <h2>一聪虽小，共识无限。</h2>
+    <p>比特聪不承诺变成一个生态，也不承诺给任何人带来回报。它给自己的约束只有一条：<strong>对外说的每一句话，都要能被链上记录或公开文件验证；还没做到的，就用「计划」两个字说清楚。</strong></p>
+    <p>一个社区项目真正的起点，不是代币上线的那一刻，而是第一批人愿意认真讨论它的那一刻。如果这个时刻没有到来，正确的选择是不发行。</p>
+  </section>
+
+  <!-- ================= 页脚 ================= -->
+  <footer class="doc-footer">
+    <div class="sources">
+      <h2>References · 参考资料</h2>
+      <ol>
+        <li id="cite-1">
+          <span class="src-title">Satoshi Nakamoto, Bitcoin: A Peer-to-Peer Electronic Cash System (2008). 比特币白皮书，2100 万枚总量与最小单位的原始出处。</span>
+          <a class="src-url" href="https://bitcoin.org/bitcoin.pdf" target="_blank" rel="noopener">https://bitcoin.org/bitcoin.pdf</a>
+        </li>
+        <li id="cite-2">
+          <span class="src-title">Solana Docs, SPL Token Program. 代币标准、总量字段与权限（Mint / Freeze Authority）说明。</span>
+          <a class="src-url" href="https://solana.com/docs/tokens" target="_blank" rel="noopener">https://solana.com/docs/tokens</a>
+        </li>
+        <li id="cite-3">
+          <span class="src-title">Metaplex, Token Metadata Standard. 代币名称、符号、图标等元数据的标准载体。</span>
+          <a class="src-url" href="https://developers.metaplex.com/" target="_blank" rel="noopener">https://developers.metaplex.com/</a>
+        </li>
+        <li id="cite-4">
+          <span class="src-title">Squads, Multisig Infrastructure on Solana. 社区金库多签方案。</span>
+          <a class="src-url" href="https://squads.xyz/" target="_blank" rel="noopener">https://squads.xyz/</a>
+        </li>
+        <li id="cite-5">
+          <span class="src-title">Raydium / Meteora, Public AMM Liquidity Pools. 公开流动性池与 LP 凭证机制。</span>
+          <a class="src-url" href="https://raydium.io/" target="_blank" rel="noopener">https://raydium.io/</a>
+        </li>
+        <li id="cite-6">
+          <span class="src-title">Solscan, Solana Block Explorer. 用于核验总量、权限状态与持仓分布的公开浏览器。</span>
+          <a class="src-url" href="https://solscan.io/" target="_blank" rel="noopener">https://solscan.io/</a>
+        </li>
+        <li id="cite-7">
+          <span class="src-title">中国人民银行等七部门，《关于防范代币发行融资风险的公告》（2017 年 9 月 4 日）。境内代币发行融资活动的监管立场。</span>
+          <a class="src-url" href="http://www.pbc.gov.cn/" target="_blank" rel="noopener">http://www.pbc.gov.cn/</a>
+        </li>
+        <li id="cite-8">
+          <span class="src-title">中国人民银行等十部门，《关于进一步防范和处置虚拟货币交易炒作风险的通知》（2021 年 9 月）。虚拟货币相关业务活动的定性。</span>
+          <a class="src-url" href="http://www.pbc.gov.cn/" target="_blank" rel="noopener">http://www.pbc.gov.cn/</a>
+        </li>
+      </ol>
+    </div>
+    <div class="colophon">
+      比特聪 BITCONG 白皮书 V1.0 · 讨论稿<br>
+      本文件不构成投资建议、要约或承诺 · 正式发行前须经法律顾问审核<br>
+      2026.10 · bitcong2030@gmail.com
+    </div>
+  </footer>
+</article>
+
+<script src="./assets/js/echarts.min.js"></script>
+<script src="./assets/charts.js"></script>
+</body>
+</html>

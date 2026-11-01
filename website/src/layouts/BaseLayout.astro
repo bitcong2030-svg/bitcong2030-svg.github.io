@@ -1,0 +1,82 @@
+---
+import { site } from '../config/site';
+import '../styles/fonts.css';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  active?: string;
+}
+const { title = `${site.chineseName} ${site.name} — Community Meme`, description = 'BitCong is an independent community meme project inspired by Bitcoin culture. Not affiliated with Bitcoin or Satoshi Nakamoto.', active = '' } = Astro.props;
+const pageTitle = title;
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0B0B0C" />
+    <meta name="description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="BitCong home">
+        <span class="brand-mark">聪</span>
+        <span class="brand-name">BIT<span>CONG</span><small>比特聪</small></span>
+      </a>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a class:list={[{ active: active === 'home' }]} href="/">首页</a>
+        <a class:list={[{ active: active === 'whitepaper' }]} href="/whitepaper/">白皮书</a>
+        <a class:list={[{ active: active === 'tokenomics' }]} href="/tokenomics/">代币经济</a>
+        <a class:list={[{ active: active === 'community' }]} href="/community/">社区</a>
+        <a class:list={[{ active: active === 'transparency' }]} href="/transparency/">透明度</a>
+      </nav>
+      <a class="header-cta" href="/whitepaper/">了解项目 <span>↗</span></a>
+      <button class="menu-toggle" aria-label="打开菜单" aria-expanded="false">☰</button>
+    </header>
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <a href="/">首页</a><a href="/whitepaper/">白皮书</a><a href="/tokenomics/">代币经济</a><a href="/community/">社区</a><a href="/transparency/">透明度</a>
+    </nav>
+    <main>
+      <slot />
+    </main>
+    <footer class="footer">
+      <div class="footer-top">
+        <a class="brand" href="/"><span class="brand-mark">聪</span><span class="brand-name">BIT<span>CONG</span><small>比特聪</small></span></a>
+        <p>一聪虽小，共识无限。<br /><span>ONE SATOSHI. ONE COMMUNITY.</span></p>
+        <div class="footer-links">
+          <a href="/whitepaper/">白皮书</a><a href="/tokenomics/">代币经济</a><a href="/transparency/">透明度</a>
+          <a href="#" class="mail-link" data-mail={`${site.contact.emailUser}|${site.contact.emailDomain}`}>{site.contact.display}</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© {new Date().getFullYear()} BITCONG COMMUNITY. Independent community project.</span>
+        <span>Not affiliated with Bitcoin or Satoshi Nakamoto.</span>
+      </div>
+      <p class="footer-disclaimer">BCONG 是独立的社区文化实验，不是 BTC、不是比特币网络上的资产，也不代表中本聪或 Bitcoin Core。项目当前处于讨论阶段，尚未发行代币：本网站展示的参数、分配与规则均为计划，未部署的部分不作完成声明。数字资产具有高度风险，可能损失全部价值。本网站仅用于项目信息展示，不构成投资建议、收益承诺、购买邀请或公开募集。</p>
+    </footer>
+    <script>
+      const toggle = document.querySelector('.menu-toggle');
+      const mobile = document.querySelector('.mobile-nav');
+      toggle?.addEventListener('click', () => {
+        const open = mobile?.classList.toggle('open') ?? false;
+        toggle.setAttribute('aria-expanded', String(open));
+      });
+
+      // 邮箱软混淆：地址不写在 href 里，点击时才拼成 mailto
+      document.querySelectorAll('.mail-link').forEach((el) => {
+        el.addEventListener('click', (event) => {
+          event.preventDefault();
+          const [user, domain] = (el.dataset.mail || '').split('|');
+          if (user && domain) window.location.href = `mailto:${user}@${domain}`;
+        });
+      });
+    </script>
+  </body>
+</html>

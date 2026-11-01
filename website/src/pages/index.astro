@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../config/site';
+---
+<BaseLayout active="home" title="比特聪 BitCong — 一聪虽小，共识无限" description="比特聪 BitCong 是一个独立的比特币文化社区 Meme 实验，基于 Solana。">
+  <section class="container hero">
+    <div class="hero-copy">
+      <div class="eyebrow">A COMMUNITY-DRIVEN MEME EXPERIMENT</div>
+      <h1>一聪虽小，<br /><span>共识无限。</span></h1>
+      <p class="hero-sub">ONE SATOSHI. ONE COMMUNITY.</p>
+      <p class="hero-desc">中本聪留下了比特币。比特聪从“聪”出发，以社区文化致敬开放、自由与去中心化的精神。我们是独立的社区实验，不是比特币的替代品。</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/whitepaper/">阅读白皮书 <span>↗</span></a>
+        <a class="btn btn-secondary" href="/tokenomics/">了解代币设计</a>
+      </div>
+      <div class="hero-meta">
+        <div><strong>SOLANA</strong>NETWORK</div>
+        <div><strong>FIXED SUPPLY</strong>NO MINT · PLANNED</div>
+        <div><strong>COMMUNITY</strong>OPEN CULTURE</div>
+      </div>
+    </div>
+    <div class="coin-stage" aria-label="BitCong coin illustration">
+      <div class="orbit"></div><div class="orbit-label one">2100万 · THE BITCOIN STORY</div><div class="orbit-label two">SMALL UNIT · BIG IDEA</div>
+      <div class="coin"><div class="coin-core">聪</div></div>
+      <div class="float-tag a">01 / COMMUNITY</div><div class="float-tag b">BCONG · SOLANA</div>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="stats-strip">
+      <div class="stat"><span>TOKEN</span><strong>BCONG</strong></div>
+      <div class="stat"><span>NETWORK</span><strong><em>◎</em> Solana</strong></div>
+      <div class="stat"><span>PLANNED TOTAL SUPPLY</span><strong>2.1 Quadrillion</strong></div>
+      <div class="stat"><span>PROJECT TYPE</span><strong>Community Meme</strong></div>
+    </div>
+  </section>
+
+  <section class="container section">
+    <div class="section-head">
+      <div><div class="eyebrow">WHY BITCONG</div><h2>从一个最小单位，<br />讲述一个共同故事。</h2></div>
+      <p class="section-intro">“聪”是比特币最小的计量单位。比特聪借用这一文化符号，探索一个由社区参与、公开记录、共同建设的数字文化项目。</p>
+    </div>
+    <div class="cards">
+      <article class="card"><span class="card-number">01 / CULTURE</span><span class="card-mark">₿</span><h3>致敬，而非冒名</h3><p>向比特币与中本聪所代表的开放精神致意。BitCong 是独立项目，与 Bitcoin 网络及中本聪没有关联或背书关系。</p></article>
+      <article class="card"><span class="card-number">02 / COMMUNITY</span><span class="card-mark">◎</span><h3>社区参与</h3><p>项目的文化、内容和活动由参与者共同推动。社区规模与贡献以真实、可验证的参与为基础。</p></article>
+      <article class="card"><span class="card-number">03 / TRANSPARENCY</span><span class="card-mark">↗</span><h3>公开与透明</h3><p>发行参数、权限状态、资金安排和重要变更应在有事实依据后公开，不以口号代替链上证据。</p></article>
+    </div>
+  </section>
+
+  <section class="container section">
+    <div class="quote-band">
+      <h2>小小一聪，<span>连接共同的信念。</span></h2>
+      <p>BITCONG · A TRIBUTE TO BITCOIN CULTURE</p>
+    </div>
+  </section>
+
+  <section class="container section">
+    <div class="section-head">
+      <div><div class="eyebrow">START HERE</div><h2>了解比特聪</h2></div>
+      <p class="section-intro">先理解项目是什么、不是什​​么，再查看代币设计与公开信息。</p>
+    </div>
+    <div class="cards">
+      <a class="card" href="/whitepaper/"><span class="card-number">DOCUMENT 01</span><h3>项目白皮书 <span>↗</span></h3><p>项目定位、文化叙事、基本原则、风险与发展方向。</p></a>
+      <a class="card" href="/tokenomics/"><span class="card-number">DOCUMENT 02</span><h3>代币经济 <span>↗</span></h3><p>计划总量、初步分配框架与需要公开验证的关键参数。</p></a>
+      <a class="card" href="/transparency/"><span class="card-number">DOCUMENT 03</span><h3>透明度中心 <span>↗</span></h3><p>链上地址、权限、流动性及金库披露状态。</p></a>
+    </div>
+  </section>
+</BaseLayout>
