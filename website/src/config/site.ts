@@ -1,3 +1,10 @@
+/**
+ * 站内链接统一走 url()，避免 GitHub Pages 子路径部署时 404。
+ * BASE_URL 由 astro.config.mjs 的 base 决定，始终以 '/' 开头和结尾。
+ */
+const BASE = import.meta.env.BASE_URL;
+export const url = (path = '/') => `${BASE}${path.replace(/^\//, '')}`;
+
 export const site = {
   name: 'BitCong',
   chineseName: '比特聪',

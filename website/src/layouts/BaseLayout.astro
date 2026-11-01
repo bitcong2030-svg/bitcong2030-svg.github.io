@@ -1,5 +1,5 @@
 ---
-import { site } from '../config/site';
+import { site, url } from '../config/site';
 import '../styles/fonts.css';
 import '../styles/global.css';
 
@@ -21,37 +21,37 @@ const pageTitle = title;
     <meta property="og:type" content="website" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
     <title>{pageTitle}</title>
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="/" aria-label="BitCong home">
+      <a class="brand" href={url('/')} aria-label="BitCong home">
         <span class="brand-mark">聪</span>
         <span class="brand-name">BIT<span>CONG</span><small>比特聪</small></span>
       </a>
       <nav class="desktop-nav" aria-label="Main navigation">
-        <a class:list={[{ active: active === 'home' }]} href="/">首页</a>
-        <a class:list={[{ active: active === 'whitepaper' }]} href="/whitepaper/">白皮书</a>
-        <a class:list={[{ active: active === 'tokenomics' }]} href="/tokenomics/">代币经济</a>
-        <a class:list={[{ active: active === 'community' }]} href="/community/">社区</a>
-        <a class:list={[{ active: active === 'transparency' }]} href="/transparency/">透明度</a>
+        <a class:list={[{ active: active === 'home' }]} href={url('/')}>首页</a>
+        <a class:list={[{ active: active === 'whitepaper' }]} href={url('/whitepaper/')}>白皮书</a>
+        <a class:list={[{ active: active === 'tokenomics' }]} href={url('/tokenomics/')}>代币经济</a>
+        <a class:list={[{ active: active === 'community' }]} href={url('/community/')}>社区</a>
+        <a class:list={[{ active: active === 'transparency' }]} href={url('/transparency/')}>透明度</a>
       </nav>
-      <a class="header-cta" href="/whitepaper/">了解项目 <span>↗</span></a>
+      <a class="header-cta" href={url('/whitepaper/')}>了解项目 <span>↗</span></a>
       <button class="menu-toggle" aria-label="打开菜单" aria-expanded="false">☰</button>
     </header>
     <nav class="mobile-nav" aria-label="Mobile navigation">
-      <a href="/">首页</a><a href="/whitepaper/">白皮书</a><a href="/tokenomics/">代币经济</a><a href="/community/">社区</a><a href="/transparency/">透明度</a>
+      <a href={url('/')}>首页</a><a href={url('/whitepaper/')}>白皮书</a><a href={url('/tokenomics/')}>代币经济</a><a href={url('/community/')}>社区</a><a href={url('/transparency/')}>透明度</a>
     </nav>
     <main>
       <slot />
     </main>
     <footer class="footer">
       <div class="footer-top">
-        <a class="brand" href="/"><span class="brand-mark">聪</span><span class="brand-name">BIT<span>CONG</span><small>比特聪</small></span></a>
+        <a class="brand" href={url('/')}><span class="brand-mark">聪</span><span class="brand-name">BIT<span>CONG</span><small>比特聪</small></span></a>
         <p>一聪虽小，共识无限。<br /><span>ONE SATOSHI. ONE COMMUNITY.</span></p>
         <div class="footer-links">
-          <a href="/whitepaper/">白皮书</a><a href="/tokenomics/">代币经济</a><a href="/transparency/">透明度</a>
+          <a href={url('/whitepaper/')}>白皮书</a><a href={url('/tokenomics/')}>代币经济</a><a href={url('/transparency/')}>透明度</a>
           <a href="#" class="mail-link" data-mail={`${site.contact.emailUser}|${site.contact.emailDomain}`}>{site.contact.display}</a>
         </div>
       </div>

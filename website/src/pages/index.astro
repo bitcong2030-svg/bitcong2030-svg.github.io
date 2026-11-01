@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { site } from '../config/site';
+import { site, url } from '../config/site';
 ---
 <BaseLayout active="home" title="比特聪 BitCong — 一聪虽小，共识无限" description="比特聪 BitCong 是一个独立的比特币文化社区 Meme 实验，基于 Solana。">
   <section class="container hero">
@@ -10,8 +10,8 @@ import { site } from '../config/site';
       <p class="hero-sub">ONE SATOSHI. ONE COMMUNITY.</p>
       <p class="hero-desc">中本聪留下了比特币。比特聪从“聪”出发，以社区文化致敬开放、自由与去中心化的精神。我们是独立的社区实验，不是比特币的替代品。</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="/whitepaper/">阅读白皮书 <span>↗</span></a>
-        <a class="btn btn-secondary" href="/tokenomics/">了解代币设计</a>
+        <a class="btn btn-primary" href={url('/whitepaper/')}>阅读白皮书 <span>↗</span></a>
+        <a class="btn btn-secondary" href={url('/tokenomics/')}>了解代币设计</a>
       </div>
       <div class="hero-meta">
         <div><strong>SOLANA</strong>NETWORK</div>
@@ -60,9 +60,9 @@ import { site } from '../config/site';
       <p class="section-intro">先理解项目是什么、不是什​​么，再查看代币设计与公开信息。</p>
     </div>
     <div class="cards">
-      <a class="card" href="/whitepaper/"><span class="card-number">DOCUMENT 01</span><h3>项目白皮书 <span>↗</span></h3><p>项目定位、文化叙事、基本原则、风险与发展方向。</p></a>
-      <a class="card" href="/tokenomics/"><span class="card-number">DOCUMENT 02</span><h3>代币经济 <span>↗</span></h3><p>计划总量、初步分配框架与需要公开验证的关键参数。</p></a>
-      <a class="card" href="/transparency/"><span class="card-number">DOCUMENT 03</span><h3>透明度中心 <span>↗</span></h3><p>链上地址、权限、流动性及金库披露状态。</p></a>
+      <a class="card" href={url('/whitepaper/')}><span class="card-number">DOCUMENT 01</span><h3>项目白皮书 <span>↗</span></h3><p>项目定位、文化叙事、基本原则、风险与发展方向。</p></a>
+      <a class="card" href={url('/tokenomics/')}><span class="card-number">DOCUMENT 02</span><h3>代币经济 <span>↗</span></h3><p>计划总量、初步分配框架与需要公开验证的关键参数。</p></a>
+      <a class="card" href={url('/transparency/')}><span class="card-number">DOCUMENT 03</span><h3>透明度中心 <span>↗</span></h3><p>链上地址、权限、流动性及金库披露状态。</p></a>
     </div>
   </section>
 </BaseLayout>

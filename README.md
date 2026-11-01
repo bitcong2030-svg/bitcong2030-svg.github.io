@@ -64,17 +64,21 @@ npm run preview
 
 ## Deployment · 部署
 
-The website is a fully static build and deploys to Cloudflare Pages:
+The website deploys to **GitHub Pages** via GitHub Actions (see [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)). Every push to `main` that touches `website/` triggers a build and publish.
 
-| Setting | Value |
+| Item | Value |
 | --- | --- |
-| Framework preset | Astro |
-| Root directory | `website` |
-| Build command | `npm run build` |
-| Build output directory | `dist` |
-| Node version | `20` (`NODE_VERSION=20`) |
+| Build | `npm ci && npm run build` (root: `website/`) |
+| Output | `website/dist` |
+| Node | 20 |
+| Base path | `/<repo-name>/` (自动注入，模板无需改动) |
+| Live URL | https://bitcong2030-svg.github.io/bitcong-website/ |
 
-No server, database, environment variables, or API keys are required.
+**One-time setup:** repository Settings → Pages → Build and deployment → Source = **GitHub Actions**.
+
+切换自定义域名或改用 `<user>.github.io` 仓库时，无需改代码：workflow 会按仓库类型自动把 `BASE_PATH` 设为 `/` 或 `/<repo>/`。
+
+Cloudflare Pages is also supported as an alternative (Root directory `website`, build `npm run build`, output `dist`), without any code change.
 
 ---
 
