@@ -71,8 +71,8 @@ The website deploys to **GitHub Pages** via GitHub Actions (see [`.github/workfl
 | Build | `npm ci && npm run build` (root: `website/`) |
 | Output | `website/dist` |
 | Node | 20 |
-| Base path | `/<repo-name>/` (自动注入，模板无需改动) |
-| Live URL | https://bitcong2030-svg.github.io/bitcong-website/ |
+| Base path | `/`（仓库为 `<user>.github.io` 时自动取根路径） |
+| Live URL | https://bitcong2030-svg.github.io/ |
 
 **One-time setup:** repository Settings → Pages → Build and deployment → Source = **GitHub Actions**.
 
