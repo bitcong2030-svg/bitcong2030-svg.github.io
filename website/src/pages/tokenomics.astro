@@ -1,39 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { allocation, site } from '../config/site';
+import TokenomicsView from '../views/TokenomicsView.astro';
+import { getDict } from '../lib/i18n';
+
+const t = getDict('en');
 ---
-<BaseLayout active="tokenomics" title="代币经济 — BitCong 比特聪">
-  <section class="container page-hero">
-    <div class="eyebrow">SUPPLY & DISTRIBUTION</div>
-    <h1>代币经济</h1>
-    <p>当前展示的是项目讨论阶段的设计框架。正式发行前，所有分配比例、释放规则和钱包地址均须完成审查并公开确认。</p>
-  </section>
-  <section class="container section">
-    <div class="cards">
-      <article class="card"><span class="card-number">TOKEN SYMBOL</span><h3>BCONG</h3><p>计划名称：BitCong / 比特聪</p></article>
-      <article class="card"><span class="card-number">NETWORK</span><h3>Solana</h3><p>计划采用 Solana SPL Token。</p></article>
-      <article class="card"><span class="card-number">PLANNED SUPPLY</span><h3 style="font-size:22px;overflow-wrap:anywhere">2,100,000,000,000,000</h3><p>计划 Decimals：0；固定供应量设计。</p></article>
-    </div>
-    <div class="note"><strong>为什么 Decimals 只能是 0–3：</strong>SPL Token 的链上总量字段是无符号 64 位整数，上限约 1.84 × 10¹⁹ 个最小单位。总量 2.1 × 10¹⁵ 时，小数位 3 对应 2.1 × 10¹⁸（可容纳），小数位 4 对应 2.1 × 10¹⁹（溢出，无法部署）。因此计划取 0 位：1 BCONG 即最小单位，与「一聪」的叙事对应。</div>
-    <div class="section-head" style="margin-top:70px"><div><div class="eyebrow">INITIAL MODEL</div><h2>初步分配框架</h2></div><p class="section-intro">分配比例不等于已铸造、已锁定或已注入流动性。链上完成后，须以实际交易和地址为准。</p></div>
-    <div class="allocation-list">
-      {allocation.map((item) => <div class="allocation-row"><strong>{item.name}</strong><div class="bar"><i style={`width:${item.percent}%;background:${item.color}`}></i></div><span>{item.percent}%</span></div>)}
-    </div>
-    <table class="data-table">
-      <thead><tr><th>分配项目</th><th>比例</th><th>计划数量</th></tr></thead>
-      <tbody>{allocation.map((item) => <tr><td>{item.name}<br /><span style="color:#777;font-size:11px">{item.en}</span></td><td>{item.percent}%</td><td>{item.amount}</td></tr>)}</tbody>
-    </table>
-    <div class="note"><strong>团队份额讨论规则：</strong>此前讨论过锁定 6 个月、随后 18 个月线性释放。该规则尚未构成链上锁仓承诺，正式采用前需公开锁仓工具、地址、受益人及释放时间表。</div>
-    <h2 style="font-size:26px;margin-top:60px">权限与透明度目标</h2>
-    <table class="data-table">
-      <tbody>
-        <tr><td>Mint Authority</td><td>目标：发行后撤销，并公开链上证据</td></tr>
-        <tr><td>Freeze Authority</td><td>目标：不保留冻结权限，并公开链上证据</td></tr>
-        <tr><td>交易税</td><td>当前设计：不设置</td></tr>
-        <tr><td>增发</td><td>当前设计：不增发</td></tr>
-        <tr><td>社区金库</td><td>目标：多签管理，公开资金流向</td></tr>
-      </tbody>
-    </table>
-    <p style="color:#858b95;font-size:12px;line-height:1.9">以上均为计划或设计目标。请勿将其理解为已部署代币的链上状态。</p>
-  </section>
+
+<BaseLayout lang="en" prefix="" path="/tokenomics/" title={`${t.tokenomics.title} — BitCong`} description={t.tokenomics.intro} active="tokenomics">
+  <TokenomicsView lang="en" prefix="" />
 </BaseLayout>

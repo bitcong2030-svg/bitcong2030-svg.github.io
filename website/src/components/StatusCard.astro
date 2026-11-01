@@ -1,0 +1,17 @@
+---
+interface Props {
+  name: string;
+  state: string;
+  warn?: boolean;
+}
+
+const { name, state, warn = false } = Astro.props;
+---
+
+<div class="status-card">
+  <div class="top">
+    <span class="name">{name}</span>
+    <span class:list={['state', { warn }]}>{state}</span>
+  </div>
+  <div class="bar"><i /></div>
+</div>

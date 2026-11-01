@@ -1,0 +1,73 @@
+---
+import { locales, type LocaleCode } from '../i18n/locales';
+import { getDict, url } from '../lib/i18n';
+
+interface Props {
+  lang: LocaleCode;
+  prefix: string;
+  path: string;
+  label: string;
+}
+
+const { lang, prefix, path, label } = Astro.props;
+const t = getDict(lang);
+const current = locales.find((l) => l.code === lang) ?? locales[0];
+
+/** 切换语言时保留当前页面路径；英文用自己的前缀，其余用 /<code> */
+const target = (code: LocaleCode): string => {
+  const p = code === 'en' ? prefix : `/${code}`;
+  return url(`${p}${path}`);
+};
+---
+
+<div class="lang" data-lang-switcher>
+  <button class="lang-btn" type="button" aria-expanded="false" aria-label={label}>
+    <span class="globe">◎</span>
+    <span>{current.short}</span>
+    <span class="caret">▾</span>
+  </button>
+  <div class="lang-menu" role="menu">
+    {locales.map((l) => (
+      l.status === 'ready' ? (
+        <a
+          class:list={['lang-item', { current: l.code === lang }]}
+          href={target(l.code)}
+          role="menuitem"
+        >
+          <span class="flag">{l.flag}</span>
+          <span>{l.label}</span>
+        </a>
+      ) : (
+        <div class="lang-item disabled" aria-disabled="true" role="menuitem">
+          <span class="flag">{l.flag}</span>
+          <span>{l.label}</span>
+          <span class="soon">{t.common.comingSoon}</span>
+        </div>
+      )
+    ))}
+  </div>
+</div>
+
+<script>
+  const root = document.querySelector('[data-lang-switcher]');
+  const btn = root?.querySelector('.lang-btn');
+  const menu = root?.querySelector('.lang-menu');
+
+  btn?.addEventListener('click', (event) => {
+    event.stopPropagation();
+    const open = menu?.classList.toggle('open') ?? false;
+    btn.setAttribute('aria-expanded', String(open));
+  });
+
+  document.addEventListener('click', () => {
+    menu?.classList.remove('open');
+    btn?.setAttribute('aria-expanded', 'false');
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      menu?.classList.remove('open');
+      btn?.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>

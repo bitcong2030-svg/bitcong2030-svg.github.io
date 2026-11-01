@@ -22,3 +22,6 @@ Thumbs.db
 
 # Package manager
 package-lock.json.bak
+
+# 用户手写意见区，不提交
+docs/revision-notes.md

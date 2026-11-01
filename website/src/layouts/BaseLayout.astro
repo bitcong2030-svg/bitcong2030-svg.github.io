@@ -1,82 +1,69 @@
 ---
-import { site, url } from '../config/site';
+import type { LocaleCode } from '../i18n/locales';
+import { locales, getLocale } from '../i18n/locales';
+import { siteUrl } from '../config/site';
+import { canonicalPath } from '../lib/i18n';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 import '../styles/fonts.css';
 import '../styles/global.css';
 
 interface Props {
-  title?: string;
-  description?: string;
+  lang: LocaleCode;
+  prefix: string;
+  path: string;
+  title: string;
+  description: string;
   active?: string;
 }
-const { title = `${site.chineseName} ${site.name} — Community Meme`, description = 'BitCong is an independent community meme project inspired by Bitcoin culture. Not affiliated with Bitcoin or Satoshi Nakamoto.', active = '' } = Astro.props;
-const pageTitle = title;
+
+const { lang, prefix, path, title, description, active } = Astro.props;
+const locale = getLocale(lang);
+const canonical = `${siteUrl}${canonicalPath(lang, path)}`;
+const ready = locales.filter((l) => l.status === 'ready');
 ---
+
 <!doctype html>
-<html lang="zh-CN">
+<html lang={locale.htmlLang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0B0B0C" />
+    <meta name="theme-color" content="#0B0D10" />
+    <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+
+    {ready.map((l) => (
+      <link rel="alternate" hreflang={l.htmlLang} href={`${siteUrl}${canonicalPath(l.code, path)}`} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={`${siteUrl}${canonicalPath('en', path)}`} />
+
     <meta property="og:type" content="website" />
-    <meta property="og:title" content={pageTitle} />
+    <meta property="og:site_name" content="BitCong" />
+    <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
-    <title>{pageTitle}</title>
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
   </head>
   <body>
-    <header class="site-header">
-      <a class="brand" href={url('/')} aria-label="BitCong home">
-        <span class="brand-mark">聪</span>
-        <span class="brand-name">BIT<span>CONG</span><small>比特聪</small></span>
-      </a>
-      <nav class="desktop-nav" aria-label="Main navigation">
-        <a class:list={[{ active: active === 'home' }]} href={url('/')}>首页</a>
-        <a class:list={[{ active: active === 'whitepaper' }]} href={url('/whitepaper/')}>白皮书</a>
-        <a class:list={[{ active: active === 'tokenomics' }]} href={url('/tokenomics/')}>代币经济</a>
-        <a class:list={[{ active: active === 'community' }]} href={url('/community/')}>社区</a>
-        <a class:list={[{ active: active === 'transparency' }]} href={url('/transparency/')}>透明度</a>
-      </nav>
-      <a class="header-cta" href={url('/whitepaper/')}>了解项目 <span>↗</span></a>
-      <button class="menu-toggle" aria-label="打开菜单" aria-expanded="false">☰</button>
-    </header>
-    <nav class="mobile-nav" aria-label="Mobile navigation">
-      <a href={url('/')}>首页</a><a href={url('/whitepaper/')}>白皮书</a><a href={url('/tokenomics/')}>代币经济</a><a href={url('/community/')}>社区</a><a href={url('/transparency/')}>透明度</a>
-    </nav>
+    <Header lang={lang} prefix={prefix} path={path} active={active} />
     <main>
       <slot />
     </main>
-    <footer class="footer">
-      <div class="footer-top">
-        <a class="brand" href={url('/')}><span class="brand-mark">聪</span><span class="brand-name">BIT<span>CONG</span><small>比特聪</small></span></a>
-        <p>一聪虽小，共识无限。<br /><span>ONE SATOSHI. ONE COMMUNITY.</span></p>
-        <div class="footer-links">
-          <a href={url('/whitepaper/')}>白皮书</a><a href={url('/tokenomics/')}>代币经济</a><a href={url('/transparency/')}>透明度</a>
-          <a href="#" class="mail-link" data-mail={`${site.contact.emailUser}|${site.contact.emailDomain}`}>{site.contact.display}</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>© {new Date().getFullYear()} BITCONG COMMUNITY. Independent community project.</span>
-        <span>Not affiliated with Bitcoin or Satoshi Nakamoto.</span>
-      </div>
-      <p class="footer-disclaimer">BCONG 是独立的社区文化实验，不是 BTC、不是比特币网络上的资产，也不代表中本聪或 Bitcoin Core。项目当前处于讨论阶段，尚未发行代币：本网站展示的参数、分配与规则均为计划，未部署的部分不作完成声明。数字资产具有高度风险，可能损失全部价值。本网站仅用于项目信息展示，不构成投资建议、收益承诺、购买邀请或公开募集。</p>
-    </footer>
-    <script>
-      const toggle = document.querySelector('.menu-toggle');
-      const mobile = document.querySelector('.mobile-nav');
-      toggle?.addEventListener('click', () => {
-        const open = mobile?.classList.toggle('open') ?? false;
-        toggle.setAttribute('aria-expanded', String(open));
-      });
+    <Footer lang={lang} prefix={prefix} />
 
-      // 邮箱软混淆：地址不写在 href 里，点击时才拼成 mailto
-      document.querySelectorAll('.mail-link').forEach((el) => {
-        el.addEventListener('click', (event) => {
-          event.preventDefault();
-          const [user, domain] = (el.dataset.mail || '').split('|');
-          if (user && domain) window.location.href = `mailto:${user}@${domain}`;
-        });
-      });
+    <a class="to-top" href="#top" aria-label="Back to top" id="toTop">↑</a>
+    <script>
+      const top = document.getElementById('toTop');
+      const toggle = () => {
+        if (window.scrollY > 600) top?.classList.add('show');
+        else top?.classList.remove('show');
+      };
+      window.addEventListener('scroll', toggle, { passive: true });
+      toggle();
     </script>
   </body>
 </html>

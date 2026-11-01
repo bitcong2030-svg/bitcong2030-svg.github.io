@@ -1,0 +1,21 @@
+---
+interface Phase { when: string; note: string; title: string; body: string; }
+interface Props { phases: Phase[]; }
+
+const { phases } = Astro.props;
+---
+
+<div class="timeline">
+  {phases.map((phase) => (
+    <div class="tl-item">
+      <div class="tl-when">
+        {phase.when}
+        <small>{phase.note}</small>
+      </div>
+      <div class="tl-body">
+        <h4>{phase.title}</h4>
+        <p>{phase.body}</p>
+      </div>
+    </div>
+  ))}
+</div>

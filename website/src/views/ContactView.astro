@@ -1,0 +1,70 @@
+---
+import type { LocaleCode } from '../i18n/locales';
+import { getDict } from '../lib/i18n';
+import { contact, socials } from '../config/site';
+import RiskNotice from '../components/RiskNotice.astro';
+
+interface Props { lang: LocaleCode; }
+const { lang } = Astro.props;
+const t = getDict(lang);
+---
+
+<section class="container page-head">
+  <span class="eyebrow">{t.contact.eyebrow}</span>
+  <h1>{t.contact.title}</h1>
+  <p>{t.contact.intro}</p>
+</section>
+
+<section class="container section-tight">
+  <div class="card" style="padding:36px 34px">
+    <span class="tag">{t.contact.emailTitle.toUpperCase()}</span>
+    <p style="font-family:var(--mono);font-size:clamp(18px,2.4vw,26px);letter-spacing:.02em;color:var(--ink);margin:18px 0 10px">
+      <span class="mail-link" data-mail={`${contact.emailUser}|${contact.emailDomain}`} style="cursor:pointer;border-bottom:1px solid var(--accent-dim)">
+        {contact.display}
+      </span>
+    </p>
+    <p style="font-size:12px;color:var(--muted);margin:0">{t.contact.emailNote}</p>
+  </div>
+</section>
+
+<section class="container section-tight">
+  <div class="section-head"><div><h2>{t.contact.audienceTitle}</h2></div></div>
+  <div class="grid-3">
+    {t.pages.contact.audiences.map((a) => (
+      <article class="card">
+        <h3 style="margin-top:0">{a.title}</h3>
+        <p>{a.body}</p>
+      </article>
+    ))}
+  </div>
+  <p style="margin-top:20px;font-size:12px;color:var(--muted2)">{t.pages.contact.responseNote}</p>
+</section>
+
+<section class="container section-tight">
+  <div class="section-head">
+    <div><h2>{t.contact.channelsTitle}</h2></div>
+    <p class="section-intro">{t.contact.channelsNote}</p>
+  </div>
+  <div class="grid-3">
+    {socials.map((s) => (
+      <article class="card">
+        <span class="tag">{s.label.toUpperCase()}</span>
+        <h3>{t.common.pendingVerification}</h3>
+        <p>{t.common.comingSoon}</p>
+      </article>
+    ))}
+  </div>
+</section>
+
+<section class="container" style="padding-bottom:110px">
+  <RiskNotice title={t.contact.securityTitle} paragraphs={[t.contact.securityBody]} />
+</section>
+
+<script>
+  document.querySelectorAll('.mail-link').forEach((el) => {
+    el.addEventListener('click', () => {
+      const [user, domain] = ((el as HTMLElement).dataset.mail || '').split('|');
+      if (user && domain) window.location.href = `mailto:${user}@${domain}`;
+    });
+  });
+</script>

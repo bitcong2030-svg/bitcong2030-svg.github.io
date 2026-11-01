@@ -1,0 +1,149 @@
+---
+import type { LocaleCode } from '../i18n/locales';
+import { getDict, href } from '../lib/i18n';
+import { allocation, token } from '../config/site';
+import { formatCompact } from '../lib/format';
+import Dial from '../components/Dial.astro';
+import Timeline from '../components/Timeline.astro';
+import RiskNotice from '../components/RiskNotice.astro';
+
+interface Props { lang: LocaleCode; prefix: string; }
+const { lang, prefix } = Astro.props;
+const t = getDict(lang);
+
+const supply = formatCompact(token.totalSupply, lang);
+const rows = allocation.map((item) => ({
+  ...item,
+  name: t.allocationNames[item.key],
+  compact: formatCompact(item.amount, lang)
+}));
+---
+
+<section class="container hero">
+  <div class="hero-grid">
+    <div>
+      <span class="eyebrow">{t.home.hero.kicker}</span>
+      <h1>{t.home.hero.titleLine1}<br /><em>{t.home.hero.titleLine2}</em></h1>
+      <p class="hero-lead">{t.home.hero.lead}</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href={href(prefix, '/whitepaper/')}>{t.common.readWhitepaper}</a>
+        <a class="btn btn-ghost" href={href(prefix, '/tokenomics/')}>{t.common.tokenDesign}</a>
+      </div>
+      <p class="hero-note">{t.home.hero.note}</p>
+    </div>
+
+    <div>
+      <Dial lang={lang} t={t} />
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <div class="stat-grid">
+    <div class="stat">
+      <div class="label">{t.home.stats.supplyLabel}</div>
+      <div class="value accent">{supply}</div>
+      <div class="note">{t.home.stats.supplyNote}</div>
+    </div>
+    <div class="stat">
+      <div class="label">{t.home.stats.networkLabel}</div>
+      <div class="value">{t.home.stats.networkValue}</div>
+      <div class="note">{t.home.stats.networkNote}</div>
+    </div>
+    <div class="stat">
+      <div class="label">{t.home.stats.tickerLabel}</div>
+      <div class="value">{t.home.stats.tickerValue}</div>
+      <div class="note">{t.home.stats.tickerNote}</div>
+    </div>
+    <div class="stat">
+      <div class="label">{t.home.stats.statusLabel}</div>
+      <div class="value">{t.home.stats.statusValue}</div>
+      <div class="note">{t.home.stats.statusNote}</div>
+    </div>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">{t.home.why.eyebrow}</span>
+      <h2>{t.home.why.title}</h2>
+    </div>
+    <p class="section-intro">{t.home.why.intro}</p>
+  </div>
+  <div class="grid-3">
+    {t.home.why.items.map((item) => (
+      <article class="card">
+        <span class="tag">{item.tag}</span>
+        <h3>{item.title}</h3>
+        <p>{item.body}</p>
+      </article>
+    ))}
+  </div>
+</section>
+
+<section class="container section-tight">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">{t.home.tokenomics.eyebrow}</span>
+      <h2>{t.home.tokenomics.title}</h2>
+    </div>
+    <p class="section-intro">{t.home.tokenomics.intro}</p>
+  </div>
+
+  <div class="hero-grid" style="gap:56px">
+    <Dial lang={lang} t={t} />
+    <div>
+      <div class="rows">
+        {rows.map((item) => (
+          <div class="row">
+            <div class="name">{item.name}<small>{item.compact}</small></div>
+            <div class="track"><div class="fill" style={`width:${item.percent}%;background:${item.color}`} /></div>
+            <div class="pct">{item.percent}%</div>
+          </div>
+        ))}
+      </div>
+      <div class="hero-actions" style="margin-top:30px">
+        <a class="btn btn-ghost btn-small" href={href(prefix, '/tokenomics/')}>{t.home.tokenomics.cta}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">{t.home.roadmap.eyebrow}</span>
+      <h2>{t.home.roadmap.title}</h2>
+    </div>
+    <p class="section-intro">{t.home.roadmap.intro}</p>
+  </div>
+  <Timeline phases={t.home.roadmap.phases} />
+</section>
+
+<section class="container section">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">{t.home.community.eyebrow}</span>
+      <h2>{t.home.community.title}</h2>
+    </div>
+    <p class="section-intro">{t.home.community.intro}</p>
+  </div>
+  <div class="grid-3">
+    {t.pages.community.platforms.map((platform) => (
+      <article class="card">
+        <span class="tag">{platform.name.toUpperCase()}</span>
+        <h3>{platform.purpose}</h3>
+        <p>{platform.detail}</p>
+        <p style="margin-top:14px;color:var(--accent-soft);font-size:12px">{t.common.pendingVerification}</p>
+      </article>
+    ))}
+  </div>
+  <div class="hero-actions" style="margin-top:26px">
+    <a class="btn btn-ghost btn-small" href={href(prefix, '/community/')}>{t.home.community.cta}</a>
+  </div>
+</section>
+
+<section class="container" style="padding-bottom:100px">
+  <RiskNotice title={t.home.risk.title} paragraphs={[t.home.risk.body, t.home.risk.body2, t.home.risk.body3]} />
+</section>

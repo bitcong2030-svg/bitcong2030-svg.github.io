@@ -1,0 +1,50 @@
+---
+import { allocation, token } from '../config/site';
+import { formatCompact } from '../lib/format';
+import type { LocaleCode } from '../i18n/locales';
+import type { Dict } from '../i18n/en';
+
+interface Props {
+  lang: LocaleCode;
+  t: Dict;
+  /** 中心主标题，例如 2.1Q */
+  total?: string;
+  caption?: string;
+  sub?: string;
+}
+
+const { lang, t, total = formatCompact(token.totalSupply, lang), caption = t.home.stats.supplyLabel, sub = 'BCONG' } = Astro.props;
+
+/** 圆环参数：r=80，周长用百分比换算成 dash 长度 */
+const R = 80;
+const C = 2 * Math.PI * R;
+let acc = 0;
+const segments = allocation.map((item) => {
+  const len = (item.percent / 100) * C;
+  const seg = { ...item, len, offset: -acc };
+  acc += len;
+  return seg;
+});
+---
+
+<div class="dial">
+  <svg viewBox="0 0 200 200" role="img" aria-label={`${caption}: ${total}`}>
+    <circle class="dial-track" cx="100" cy="100" r={R} />
+    {segments.map((s) => (
+      <circle
+        class="dial-seg"
+        cx="100"
+        cy="100"
+        r={R}
+        stroke={s.color}
+        stroke-dasharray={`${Math.max(s.len - 2.4, 0)} ${C}`}
+        stroke-dashoffset={s.offset}
+      />
+    ))}
+  </svg>
+  <div class="dial-center">
+    <span class="k">{caption}</span>
+    <span class="v">{total}</span>
+    <span class="s">{sub}</span>
+  </div>
+</div>
