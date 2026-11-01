@@ -13,10 +13,14 @@ const { lang, prefix, path, label } = Astro.props;
 const t = getDict(lang);
 const current = locales.find((l) => l.code === lang) ?? locales[0];
 
-/** 切换语言时保留当前页面路径；英文用自己的前缀，其余用 /<code> */
+/**
+ * 切换语言时保留当前页面路径。
+ * 英文有两套入口：根路径（默认主站）与 /en/；因此英文目标要按当前所在的树来选，
+ * 不能沿用当前语言前缀，否则在 /zh-cn/ 下点 English 会原地不动。
+ */
 const target = (code: LocaleCode): string => {
-  const p = code === 'en' ? prefix : `/${code}`;
-  return url(`${p}${path}`);
+  const segment = code === 'en' ? (prefix === '' ? '' : '/en') : `/${code}`;
+  return url(`${segment}${path}`);
 };
 ---
 
