@@ -30,7 +30,11 @@ export const en = {
     downloadPdf: 'Download PDF',
     printVersion: 'Print version',
     lastUpdated: 'Discussion draft · October 2026',
-    languageLabel: 'Language'
+    languageLabel: 'Language',
+    swap: 'Swap BCONG',
+    swapSoon: 'Swap opens after launch',
+    swapNote: 'Redirects to a public aggregator. Wallet stays in your browser.',
+    swapUnavailable: 'No mint address yet — the swap entry activates after launch.'
   },
 
   home: {
@@ -89,6 +93,44 @@ export const en = {
         'The full supply is split into four purposes. No presale, no private round, no market-making allocation, no buyback reserve.',
       cta: 'Full tokenomics'
     },
+
+    definition: {
+      eyebrow: 'IN ONE LOOK',
+      title: 'What BitCong is, in three sentences.',
+      items: [
+        {
+          k: 'WHAT IT IS',
+          t: 'A community cultural project planned on Solana, named after the smallest unit of Bitcoin.'
+        },
+        {
+          k: 'WHY THIS NUMBER',
+          t: 'Its planned supply equals every satoshi that will ever exist: 21 million BTC × 100 million satoshi.'
+        },
+        {
+          k: 'WHERE IT STANDS',
+          t: 'Not launched. No mint address, no pool, no sale, and no distribution has taken place.'
+        }
+      ],
+      qa: [
+        {
+          q: 'What is BitCong?',
+          a: 'A community cultural project built around one idea: scarcity expressed at the smallest unit. It is a social and cultural experiment first, and a token second.'
+        },
+        {
+          q: 'Is it Bitcoin, or connected to Bitcoin?',
+          a: 'No. It is independent, has no technical link, no exchange right, and no endorsement from Satoshi Nakamoto or any Bitcoin organisation. The name is a reference, nothing more.'
+        },
+        {
+          q: 'Where is the project now?',
+          a: 'Preparation. The parameters and rules are published, the whitepaper is drafted, and legal review is a precondition. Nothing is on-chain yet.'
+        },
+        {
+          q: 'How can I take part?',
+          a: 'Read the whitepaper, follow the official channels once verified, and contribute content, translation, or review. There is no purchase step today.'
+        }
+      ]
+    },
+
     roadmap: {
       eyebrow: 'ROADMAP',
       title: 'Four weeks to prepare. Then a decision, not a deadline.',

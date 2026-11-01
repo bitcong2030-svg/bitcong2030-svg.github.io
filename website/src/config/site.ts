@@ -56,3 +56,20 @@ export const chainStatus = [
 ] as const;
 
 export const siteUrl = 'https://bitcong2030-svg.github.io';
+
+/** 比特币侧的推导参数，用于首屏供应链路（纯展示） */
+export const bitcoin = {
+  maxSupply: 21_000_000,
+  satoshisPerCoin: 100_000_000
+};
+
+/**
+ * 兑换入口。
+ * mintAddress 为空 → 页面显示禁用态；部署后填入真实 Mint，链接自动生效。
+ * 本站不连接钱包、不托管资产，只做跳转到公开聚合器。
+ */
+export const swap = {
+  provider: 'Jupiter',
+  mintAddress: '',
+  url: (mint: string) => `https://jup.ag/swap/SOL-${mint}`
+};

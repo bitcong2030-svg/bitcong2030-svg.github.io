@@ -395,7 +395,7 @@ export const chapters: Chapter[] = [
   {
     id: 'community',
     num: '11',
-    title: 'Community and Social Media Operations',
+    title: 'Community & Media',
     blocks: [
       {
         type: 'p',

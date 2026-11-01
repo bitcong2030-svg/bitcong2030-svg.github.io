@@ -1,0 +1,64 @@
+---
+import { bitcoin, token } from '../config/site';
+import { formatCompact, formatFull } from '../lib/format';
+import type { LocaleCode } from '../i18n/locales';
+import type { Dict } from '../i18n/en';
+
+interface Props {
+  lang: LocaleCode;
+  t: Dict;
+}
+
+const { lang, t } = Astro.props;
+const btc = bitcoin.maxSupply;
+const sat = bitcoin.satoshisPerCoin;
+const compact = formatCompact(token.totalSupply, lang);
+const exact = formatFull(token.totalSupply, lang);
+---
+
+<div class="chain">
+  <div class="chain-title">
+    <span>SUPPLY DERIVATION</span>
+    <b>2.1 × 10¹⁵</b>
+  </div>
+
+  <div class="chain-row">
+    <span class="chain-num" data-count={btc}>{formatFull(btc, lang)}</span>
+    <span class="chain-lbl" set:html={'BTC<br/>max supply'} />
+  </div>
+
+  <div class="chain-op"><span>×</span></div>
+
+  <div class="chain-row">
+    <span class="chain-num" data-count={sat}>{formatFull(sat, lang)}</span>
+    <span class="chain-lbl" set:html={'Satoshi<br/>per BTC'} />
+  </div>
+
+  <div class="chain-op"><span>=</span></div>
+
+  <div class="chain-result">
+    <div class="v">{compact}</div>
+    <div class="s">{exact} BCONG · PLANNED</div>
+  </div>
+
+  <p class="chain-foot">A cultural reference to scarcity, not a claim on Bitcoin.</p>
+</div>
+
+<script>
+  const counters = document.querySelectorAll('[data-count]');
+  counters.forEach((el) => {
+    const target = Number((el as HTMLElement).dataset.count || 0);
+    const duration = 1200;
+    const started = performance.now();
+    const format = (n: number) => Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    const step = (now: number) => {
+      const progress = Math.min((now - started) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = format(target * eased);
+      if (progress < 1) requestAnimationFrame(step);
+    };
+
+    requestAnimationFrame(step);
+  });
+</script>

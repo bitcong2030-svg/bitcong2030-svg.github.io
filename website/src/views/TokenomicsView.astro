@@ -5,6 +5,7 @@ import { allocation, chainStatus, token } from '../config/site';
 import { formatCompact, formatFull } from '../lib/format';
 import Dial from '../components/Dial.astro';
 import StatusCard from '../components/StatusCard.astro';
+import SwapButton from '../components/SwapButton.astro';
 
 interface Props { lang: LocaleCode; }
 const { lang } = Astro.props;
@@ -123,6 +124,14 @@ const authority = chainStatus.filter((s) => ['mint', 'freeze', 'metadata', 'vest
       <StatusCard name={t.statusItems[item.key]} state={t.statuses[item.state]} warn />
     ))}
   </div>
+</section>
+
+<section class="container section-tight">
+  <div class="swap-block">
+    <SwapButton lang={lang} variant="cta" />
+    <span class="swap-note">{t.common.swapNote}</span>
+  </div>
+  <p style="margin-top:14px;font-size:11px;line-height:1.8;color:var(--muted2)">{t.common.swapUnavailable}</p>
 </section>
 
 <section class="container section-tight">

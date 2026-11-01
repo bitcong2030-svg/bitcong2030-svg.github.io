@@ -4,6 +4,8 @@ import { getDict, href } from '../lib/i18n';
 import { allocation, token } from '../config/site';
 import { formatCompact } from '../lib/format';
 import Dial from '../components/Dial.astro';
+import SupplyChain from '../components/SupplyChain.astro';
+import SwapButton from '../components/SwapButton.astro';
 import Timeline from '../components/Timeline.astro';
 import RiskNotice from '../components/RiskNotice.astro';
 
@@ -25,15 +27,18 @@ const rows = allocation.map((item) => ({
       <span class="eyebrow">{t.home.hero.kicker}</span>
       <h1>{t.home.hero.titleLine1}<br /><em>{t.home.hero.titleLine2}</em></h1>
       <p class="hero-lead">{t.home.hero.lead}</p>
+
       <div class="hero-actions">
         <a class="btn btn-primary" href={href(prefix, '/whitepaper/')}>{t.common.readWhitepaper}</a>
         <a class="btn btn-ghost" href={href(prefix, '/tokenomics/')}>{t.common.tokenDesign}</a>
+        <SwapButton lang={lang} />
       </div>
+
       <p class="hero-note">{t.home.hero.note}</p>
     </div>
 
     <div>
-      <Dial lang={lang} t={t} />
+      <SupplyChain lang={lang} t={t} />
     </div>
   </div>
 </section>
@@ -64,6 +69,34 @@ const rows = allocation.map((item) => ({
 </section>
 
 <section class="container section">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">{t.home.definition.eyebrow}</span>
+      <h2>{t.home.definition.title}</h2>
+    </div>
+  </div>
+
+  <div class="definition">
+    {t.home.definition.items.map((item) => (
+      <div>
+        <span class="k">{item.k}</span>
+        <p class="t">{item.t}</p>
+      </div>
+    ))}
+  </div>
+
+  <div class="qa" style="margin-top:44px">
+    {t.home.definition.qa.map((item, i) => (
+      <div class="qa-item">
+        <span class="q">{`Q${i + 1}`}</span>
+        <h4>{item.q}</h4>
+        <p>{item.a}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<section class="container section-tight">
   <div class="section-head">
     <div>
       <span class="eyebrow">{t.home.why.eyebrow}</span>
@@ -103,7 +136,13 @@ const rows = allocation.map((item) => ({
           </div>
         ))}
       </div>
-      <div class="hero-actions" style="margin-top:30px">
+
+      <div class="swap-block" style="margin-top:28px">
+        <SwapButton lang={lang} variant="cta" />
+        <span class="swap-note">{t.common.swapNote}</span>
+      </div>
+
+      <div class="hero-actions" style="margin-top:18px">
         <a class="btn btn-ghost btn-small" href={href(prefix, '/tokenomics/')}>{t.home.tokenomics.cta}</a>
       </div>
     </div>
@@ -121,7 +160,7 @@ const rows = allocation.map((item) => ({
   <Timeline phases={t.home.roadmap.phases} />
 </section>
 
-<section class="container section">
+<section class="container section-tight">
   <div class="section-head">
     <div>
       <span class="eyebrow">{t.home.community.eyebrow}</span>
@@ -135,15 +174,17 @@ const rows = allocation.map((item) => ({
         <span class="tag">{platform.name.toUpperCase()}</span>
         <h3>{platform.purpose}</h3>
         <p>{platform.detail}</p>
-        <p style="margin-top:14px;color:var(--accent-soft);font-size:12px">{t.common.pendingVerification}</p>
+        <p style="margin-top:14px;color:var(--accent-soft);font-family:var(--mono);font-size:10px;letter-spacing:.06em">
+          {t.common.pendingVerification}
+        </p>
       </article>
     ))}
   </div>
-  <div class="hero-actions" style="margin-top:26px">
+  <div class="hero-actions" style="margin-top:24px">
     <a class="btn btn-ghost btn-small" href={href(prefix, '/community/')}>{t.home.community.cta}</a>
   </div>
 </section>
 
-<section class="container" style="padding-bottom:100px">
+<section class="container" style="padding-bottom:96px">
   <RiskNotice title={t.home.risk.title} paragraphs={[t.home.risk.body, t.home.risk.body2, t.home.risk.body3]} />
 </section>
