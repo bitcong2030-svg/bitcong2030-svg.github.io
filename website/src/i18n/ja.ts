@@ -258,13 +258,17 @@ export const ja: Dict = {
     locked: 'ロック済み',
     unlockable: '変更可能',
     disabled: '未設定',
+    noteTitle: '技術メモ：トークン標準が「Fungible Asset」になる理由',
+    noteBody:
+      'BCONG は decimals 0、供給量 1 超で発行されています。Metaplex はこの条件の Mint を「Fungible」ではなく「Fungible Asset」と判定します。これはメタデータプログラムの固定ルールであり、不具合ではありません。送金、流動性プール、ブロックエクスプローラーには影響しません。ウォレットや価格サイトでは、ミントアドレスを手動で追加する必要があり、価格サイトは取引可能なプールが存在して初めて掲載されます。',
     fields: {
       name: 'トークン名',
       symbol: 'シンボル',
       network: 'ネットワーク',
-      standard: 'トークン規格',
+      standard: 'トークン・プログラム',
       supply: '総供給量',
       decimals: '小数点以下',
+      tokenStandard: 'Metaplex 標準',
       mint: 'ミントアドレス',
       metadataUri: 'メタデータ URI',
       updated: '証拠の更新日'

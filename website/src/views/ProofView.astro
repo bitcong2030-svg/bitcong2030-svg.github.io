@@ -22,6 +22,7 @@ const params = [
   { label: t.proof.fields.standard, value: token.standard },
   { label: t.proof.fields.supply, value: formatFull(token.totalSupply, lang) },
   { label: t.proof.fields.decimals, value: String(token.decimals) },
+  { label: t.proof.fields.tokenStandard, value: 'Fungible Asset' },
   { label: t.proof.fields.mint, value: issuance.mintAddress, link: issuance.mintAddress ? explorer.address(issuance.mintAddress) : '' },
   { label: t.proof.fields.metadataUri, value: 'https://bitcong2030-svg.github.io/token-metadata.json', link: 'https://bitcong2030-svg.github.io/token-metadata.json' },
   { label: t.proof.fields.updated, value: issuance.updatedAt }
@@ -175,6 +176,13 @@ solana account &lt;METADATA_PDA&gt; --url https://api.mainnet-beta.solana.com
 
 # 3. Machine-readable copy of this page
 curl https://bitcong2030-svg.github.io/proof.json</code></pre>
+</section>
+
+<section class="container section-tight">
+  <div class="risk" style="border-color:var(--line)">
+    <h3>{t.proof.noteTitle}</h3>
+    <p style="margin:10px 0 0;font-size:13px;line-height:1.9;color:var(--muted)">{t.proof.noteBody}</p>
+  </div>
 </section>
 
 <section class="container section-tight">

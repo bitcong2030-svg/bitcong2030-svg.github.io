@@ -17,6 +17,8 @@ export const GET: APIRoute = () => {
     metadataProgram: token.program,
     totalSupply: token.totalSupply,
     decimals: token.decimals,
+    /** Metaplex 对 decimals=0 且 supply>1 的 Mint 固定判定为 FungibleAsset。 */
+    tokenStandard: 'Fungible Asset',
     state: issuance.state,
     mintAddress: issuance.mintAddress || null,
     transactions: {

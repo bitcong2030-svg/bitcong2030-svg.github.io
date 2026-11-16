@@ -264,13 +264,17 @@ export const ko: Dict = {
     locked: '잠김',
     unlockable: '변경 가능',
     disabled: '설정 안 됨',
+    noteTitle: '기술 참고: 토큰 표준이 "Fungible Asset"으로 표시되는 이유',
+    noteBody:
+      'BCONG 은 decimals 0, 공급량 1 초과로 발행되었습니다. Metaplex 는 이 조건의 Mint 를 "Fungible" 이 아니라 "Fungible Asset" 으로 판정합니다. 이는 메타데이터 프로그램의 고정 규칙이며 오류가 아닙니다. 전송, 유동성 풀, 블록 탐색기에는 영향이 없습니다. 지갑과 가격 사이트에서는 민트 주소를 직접 추가해야 표시되며, 가격 사이트는 거래 가능한 풀이 존재해야 등재됩니다.',
     fields: {
       name: '토큰 이름',
       symbol: '심볼',
       network: '네트워크',
-      standard: '토큰 표준',
+      standard: '토큰 프로그램',
       supply: '총 공급량',
       decimals: '소수 자릿수',
+      tokenStandard: 'Metaplex 표준',
       mint: '민트 주소',
       metadataUri: '메타데이터 URI',
       updated: '증거 업데이트'

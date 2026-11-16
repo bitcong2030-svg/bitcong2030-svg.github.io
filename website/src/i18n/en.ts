@@ -261,13 +261,17 @@ export const en = {
     locked: 'Locked',
     unlockable: 'Still updatable',
     disabled: 'Not set',
+    noteTitle: 'Technical note: why the standard reads "Fungible Asset"',
+    noteBody:
+      'BCONG is minted with 0 decimals and a supply above 1. Metaplex deterministically labels such mints "Fungible Asset" rather than "Fungible" — a rule of the metadata program, not an error. Transfers, liquidity pools and block explorers are unaffected. Wallets and price aggregators normally require the mint address to be added manually, and price sites only list a token once a tradable pool exists.',
     fields: {
       name: 'Token name',
       symbol: 'Symbol',
       network: 'Network',
-      standard: 'Token standard',
+      standard: 'Token program',
       supply: 'Total supply',
       decimals: 'Decimals',
+      tokenStandard: 'Metaplex standard',
       mint: 'Mint address',
       metadataUri: 'Metadata URI',
       updated: 'Evidence last updated'

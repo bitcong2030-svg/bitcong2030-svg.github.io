@@ -260,13 +260,17 @@ export const zhCn: Dict = {
     locked: '已锁定',
     unlockable: '仍可修改',
     disabled: '未设置',
+    noteTitle: '技术说明：为什么代币标准显示为 Fungible Asset',
+    noteBody:
+      'BCONG 采用 0 精度，且供应量大于 1。Metaplex 会把这类 Mint 判定为「Fungible Asset」而不是「Fungible」，这是元数据程序的固定规则，不是错误。转账、流动性池和区块浏览器都不受影响。钱包与行情站通常需要手动添加铸币地址才会显示，行情站还要等到存在可交易池子才会收录。',
     fields: {
       name: '代币名称',
       symbol: '符号',
       network: '网络',
-      standard: '代币标准',
+      standard: '代币程序',
       supply: '总供应量',
       decimals: '精度',
+      tokenStandard: 'Metaplex 标准',
       mint: '铸币地址',
       metadataUri: '元数据 URI',
       updated: '证据更新时间'
