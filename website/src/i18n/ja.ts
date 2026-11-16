@@ -4,7 +4,7 @@ export const ja: Dict = {
   meta: {
     title: 'BitCong — 1サトシ。1コミュニティ。',
     description:
-      'BitCong は、ビットコインの最小単位に着想を得た、Solana 上で計画中の独立したコミュニティ主導の文化プロジェクトです。ローンチ前の段階で、トークンはまだ発行されていません。'
+      'BitCong（BCONG）は、ビットコインの最小単位に着想を得た Solana 上のコミュニティ文化トークンです。ミント権限とフリーズ権限は恒久的に撤回済みで、すべてのパラメータはオンチェーンで検証できます。'
   },
 
   nav: {
@@ -13,6 +13,7 @@ export const ja: Dict = {
     tokenomics: 'トークノミクス',
     community: 'コミュニティ',
     transparency: '透明性',
+    proof: '証明',
     contact: 'お問い合わせ'
   },
 
@@ -29,9 +30,9 @@ export const ja: Dict = {
     lastUpdated: '検討用ドラフト · 2026年10月',
     languageLabel: '言語',
     swap: 'BCONG をスワップ',
-    swapSoon: 'スワップはローンチ後に開放',
+    swapSoon: 'スワップは流動性の追加後に開放されます',
     swapNote: '公開アグリゲーターへ転送します。ウォレットはブラウザ上に留まります。',
-    swapUnavailable: 'ミントアドレスはまだありません。スワップ入口はローンチ後に有効になります。'
+    swapUnavailable: '流動性プールはまだありません。プール作成後にスワップ入口が有効になります。'
   },
 
   home: {
@@ -40,11 +41,11 @@ export const ja: Dict = {
       titleLine1: '1サトシ。',
       titleLine2: '1コミュニティ。',
       lead:
-        'BitCong の名前は、ビットコインの最小単位に由来します。計画中の供給量は、今後存在するすべてのサトシと同数です。これは文化的な参照であり、ビットコインに対する権利を意味するものではありません。',
-      note: 'ローンチ前。本サイトの内容は、まだ発行・デプロイ・オンチェーン化のいずれも行われていません。'
+        'BitCong の名前は、ビットコインの最小単位に由来します。供給量は、今後存在するすべてのサトシと同数です。これは文化的な参照であり、ビットコインに対する権利を意味するものではありません。',
+      note: 'Solana メインネットで発行済み。ミント権限は撤回済み、供給量は固定、フリーズ機能はありません。'
     },
     stats: {
-      supplyLabel: '計画供給量',
+      supplyLabel: '総供給量',
       supplyValue: '2.1Q',
       supplyNote: '全サトシと同数',
       networkLabel: 'ネットワーク',
@@ -54,8 +55,8 @@ export const ja: Dict = {
       tickerValue: 'BCONG',
       tickerNote: 'ティッカーは空き状況を確認中',
       statusLabel: 'ステータス',
-      statusValue: '未発行',
-      statusNote: 'ミントアドレスは存在しません'
+      statusValue: '発行済み',
+      statusNote: 'ミント権限は撤回済み'
     },
     why: {
       eyebrow: 'なぜ BitCong か',
@@ -97,15 +98,15 @@ export const ja: Dict = {
       items: [
         {
           k: 'これは何か',
-          t: 'ビットコインの最小単位から名を採った、Solana 上で計画中のコミュニティ文化プロジェクト。'
+          t: 'ビットコインの最小単位から名を採った、Solana 上のコミュニティ文化トークン。'
         },
         {
           k: 'なぜこの数字か',
-          t: '計画供給量は、今後存在するすべてのサトシと同数です。21,000,000 BTC × 100,000,000 サトシ。'
+          t: '供給量は、今後存在するすべてのサトシと同数です。21,000,000 BTC × 100,000,000 サトシ。'
         },
         {
           k: '現在の位置',
-          t: '未発行。ミントアドレスも、プールも、販売も、配布もまだ行われていません。'
+          t: '発行済み。ミントアドレスは公開され、ミント権限は撤回されています。流動性プールはまだありません。'
         }
       ],
       qa: [
@@ -231,6 +232,58 @@ export const ja: Dict = {
     channelsNote: 'ソーシャルアカウントは確認後にここへ掲載します。それまでは「確認待ち」と表示します。'
   },
 
+  proof: {
+    eyebrow: 'オンチェーン証明',
+    title: '発行証明',
+    intro:
+      'このサイトの主張は、私たちを信頼せずとも検証できるべきです。ここではミントアドレス、供給量、権限の状態、取引署名を公開します。オンチェーンで実際の取引が発生するまで、各項目は空欄のままです。',
+    stateNotIssued: '未発行',
+    stateNotIssuedNote:
+      'トークンはまだ発行されていません。以下の項目は、実際のオンチェーン取引が存在した後にのみ記入されます。事前に埋めることはありません。',
+    stateIssued: '発行済み',
+    stateIssuedNote:
+      '以下の値はこのページに記載された取引記録に基づきます。任意の Solana RPC で独自に検証できます。',
+    paramsTitle: 'トークン諸元',
+    authorityTitle: '権限の状態',
+    allocationTitle: '配分',
+    verifyTitle: '自分で検証する',
+    verifyNote:
+      'ミントアドレスを任意のエクスプローラーに入力するか、公開 RPC に対して以下のコマンドを実行してください。私たちの許可は不要です。',
+    fakeTitle: '公式アドレスと偽トークン',
+    fakeBody:
+      '公式なのはこのページに記載されたミントアドレスのみです。BCONG のティッカーを使う他のコントラクトは本プロジェクトと無関係です。管理者がシードフレーズ、秘密鍵、報酬受取のための送金を求めることは決してありません。',
+    empty: '公開予定',
+    notRevoked: '有効なまま',
+    revoked: '撤回済み',
+    locked: 'ロック済み',
+    unlockable: '変更可能',
+    disabled: '未設定',
+    fields: {
+      name: 'トークン名',
+      symbol: 'シンボル',
+      network: 'ネットワーク',
+      standard: 'トークン規格',
+      supply: '総供給量',
+      decimals: '小数点以下',
+      mint: 'ミントアドレス',
+      metadataUri: 'メタデータ URI',
+      updated: '証拠の更新日'
+    },
+    authority: {
+      mint: 'ミント権限 — 追加発行の可否',
+      freeze: 'フリーズ権限 — アカウント凍結の可否',
+      metadata: 'メタデータ権限 — 名前・シンボル・アイコン'
+    },
+    columns: {
+      authority: '権限',
+      state: '状態',
+      tx: '取引署名',
+      bucket: '配分',
+      amount: '数量',
+      address: '受取アドレス'
+    }
+  },
+
   pages: {
     community: {
       platforms: [
@@ -339,7 +392,7 @@ export const ja: Dict = {
       contact: 'お問い合わせ'
     },
     disclaimer:
-      'BCONG は独立したコミュニティの文化実験です。BTC ではなく、ビットコイン・ネットワーク上の資産でもなく、Satoshi Nakamoto や Bitcoin Core とも関係がありません。プロジェクトは討議段階にあり、トークンはまだ発行されていません。本サイトに示すすべてのパラメータ、配分、ルールは計画であり、未デプロイのものを完了として提示することはありません。',
+      'BCONG は独立したコミュニティの文化実験です。BTC ではなく、ビットコイン・ネットワーク上の資産でもなく、Satoshi Nakamoto や Bitcoin Core とも関係がありません。トークンは Solana メインネットで発行済みで、供給量は固定、ミント権限は撤回されています。まだ実施していない事項（流動性の追加など）は計画として明示し、完了として提示することはありません。',
     rights: 'BITCONG COMMUNITY｜独立したコミュニティプロジェクト。',
     notAffiliated: 'ビットコインおよび Satoshi Nakamoto とは関係ありません。'
   },

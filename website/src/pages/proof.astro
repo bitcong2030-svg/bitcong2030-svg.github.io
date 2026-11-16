@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProofView from '../views/ProofView.astro';
+import { getDict } from '../lib/i18n';
+
+const t = getDict('en');
+---
+
+<BaseLayout lang="en" prefix="" path="/proof/" title={`${t.proof.title} — BitCong`} description={t.proof.intro} active="proof">
+  <ProofView lang="en" />
+</BaseLayout>

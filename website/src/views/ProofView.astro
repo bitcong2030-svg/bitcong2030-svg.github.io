@@ -1,0 +1,208 @@
+---
+import type { LocaleCode } from '../i18n/locales';
+import { getDict } from '../lib/i18n';
+import { allocation, explorer, issuance, token } from '../config/site';
+import { formatFull } from '../lib/format';
+
+interface Props {
+  lang: LocaleCode;
+}
+
+const { lang } = Astro.props;
+const t = getDict(lang);
+
+/** 只有同时满足 state=issued 且填了真实 Mint 才算「已发行」。 */
+const issued = issuance.state === 'issued' && issuance.mintAddress.length > 0;
+const empty = t.proof.empty;
+
+const params = [
+  { label: t.proof.fields.name, value: token.name },
+  { label: t.proof.fields.symbol, value: token.ticker },
+  { label: t.proof.fields.network, value: token.network },
+  { label: t.proof.fields.standard, value: token.standard },
+  { label: t.proof.fields.supply, value: formatFull(token.totalSupply, lang) },
+  { label: t.proof.fields.decimals, value: String(token.decimals) },
+  { label: t.proof.fields.mint, value: issuance.mintAddress, link: issuance.mintAddress ? explorer.address(issuance.mintAddress) : '' },
+  { label: t.proof.fields.metadataUri, value: 'https://bitcong2030-svg.github.io/token-metadata.json', link: 'https://bitcong2030-svg.github.io/token-metadata.json' },
+  { label: t.proof.fields.updated, value: issuance.updatedAt }
+];
+
+const authorities = [
+  {
+    label: t.proof.authority.mint,
+    state: issuance.mintAuthorityRevokedTx ? t.proof.revoked : t.proof.notRevoked,
+    tx: issuance.mintAuthorityRevokedTx
+  },
+  {
+    label: t.proof.authority.freeze,
+    state: issuance.freezeAuthorityDisabled ? t.proof.disabled : t.proof.notRevoked,
+    tx: ''
+  },
+  {
+    label: t.proof.authority.metadata,
+    state: issuance.metadataLocked ? t.proof.locked : t.proof.unlockable,
+    tx: issuance.metadataLockTx
+  }
+].map((row) =>
+  // 尚未发行时链上不存在 Mint，任何权限状态都无从谈起，一律显示待公布。
+  issued ? row : { label: row.label, state: empty, tx: '' }
+);
+
+const allocationRows = allocation.map((item) => {
+  const evidence = issuance.allocations.find((entry) => entry.key === item.key);
+  return {
+    name: t.allocationNames[item.key],
+    amount: formatFull(item.amount, lang),
+    address: evidence?.address ?? '',
+    tx: evidence?.tx ?? ''
+  };
+});
+
+const hasAllocationEvidence = allocationRows.some((row) => row.address.length > 0);
+---
+
+<section class="container page-head">
+  <span class="eyebrow">{t.proof.eyebrow}</span>
+  <h1>{t.proof.title}</h1>
+  <p>{t.proof.intro}</p>
+</section>
+
+<section class="container section-tight">
+  <div class="risk" style="border-color:var(--line)">
+    <h3 style="color:var(--accent-soft)">
+      {issued ? t.proof.stateIssued : t.proof.stateNotIssued}
+    </h3>
+    <p style="margin:10px 0 0;font-size:13px;line-height:1.9;color:var(--muted)">
+      {issued ? t.proof.stateIssuedNote : t.proof.stateNotIssuedNote}
+    </p>
+  </div>
+</section>
+
+<section class="container section-tight">
+  <h2 class="section-label">{t.proof.paramsTitle}</h2>
+  <div class="table-wrap">
+    <table>
+      <tbody>
+        {params.map((row) => (
+          <tr>
+            <th scope="row" style="white-space:nowrap">{row.label}</th>
+            <td class="mono">
+              {row.link
+                ? <a href={row.link} target="_blank" rel="noopener noreferrer">{row.value}</a>
+                : row.value || <span style="color:var(--muted2)">{empty}</span>}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="container section-tight">
+  <h2 class="section-label">{t.proof.authorityTitle}</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>{t.proof.columns.authority}</th>
+          <th>{t.proof.columns.state}</th>
+          <th>{t.proof.columns.tx}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {authorities.map((row) => (
+          <tr>
+            <td>{row.label}</td>
+            <td class="mono">{row.state}</td>
+            <td class="mono">
+              {row.tx
+                ? <a href={explorer.tx(row.tx)} target="_blank" rel="noopener noreferrer">{row.tx.slice(0, 16)}…</a>
+                : <span style="color:var(--muted2)">{empty}</span>}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="container section-tight">
+  <h2 class="section-label">{t.proof.allocationTitle}</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>{t.proof.columns.bucket}</th>
+          <th>{t.proof.columns.amount}</th>
+          <th>{t.proof.columns.address}</th>
+          <th>{t.proof.columns.tx}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {allocationRows.map((row) => (
+          <tr>
+            <td>{row.name}</td>
+            <td class="mono">{row.amount}</td>
+            <td class="mono">
+              {row.address
+                ? <a href={explorer.address(row.address)} target="_blank" rel="noopener noreferrer">{row.address.slice(0, 8)}…{row.address.slice(-6)}</a>
+                : <span style="color:var(--muted2)">{empty}</span>}
+            </td>
+            <td class="mono">
+              {row.tx
+                ? <a href={explorer.tx(row.tx)} target="_blank" rel="noopener noreferrer">{row.tx.slice(0, 16)}…</a>
+                : <span style="color:var(--muted2)">{empty}</span>}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  {!hasAllocationEvidence && (
+    <p style="margin-top:14px;font-size:12px;line-height:1.9;color:var(--muted2)">{t.proof.stateNotIssuedNote}</p>
+  )}
+</section>
+
+<section class="container section-tight">
+  <h2 class="section-label">{t.proof.verifyTitle}</h2>
+  <p style="font-size:13px;line-height:1.9;color:var(--muted);margin-bottom:16px">{t.proof.verifyNote}</p>
+  <pre class="proof-code"><code># 1. Supply, decimals, mint and freeze authority
+spl-token display &lt;MINT_ADDRESS&gt; --url https://api.mainnet-beta.solana.com
+
+# 2. On-chain metadata (name, symbol, uri, is_mutable)
+#    Metadata account = PDA(["metadata", METADATA_PROGRAM, mint])
+solana account &lt;METADATA_PDA&gt; --url https://api.mainnet-beta.solana.com
+
+# 3. Machine-readable copy of this page
+curl https://bitcong2030-svg.github.io/proof.json</code></pre>
+</section>
+
+<section class="container section-tight">
+  <div class="risk">
+    <h3>{t.proof.fakeTitle}</h3>
+    <p style="margin:10px 0 0;font-size:13px;line-height:1.9;color:var(--muted)">{t.proof.fakeBody}</p>
+  </div>
+</section>
+
+<style>
+  .section-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    margin-bottom: 14px;
+  }
+  .proof-code {
+    margin: 0;
+    padding: 18px 20px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    overflow-x: auto;
+    font-family: var(--mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+    font-size: 12px;
+    line-height: 1.9;
+    color: var(--muted);
+  }
+</style>

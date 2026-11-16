@@ -5,7 +5,7 @@ export const ko: Dict = {
   meta: {
     title: 'BitCong — 하나의 사토시, 하나의 커뮤니티.',
     description:
-      'BitCong 은 비트코인의 최소 단위에서 출발한, Solana 기반으로 계획 중인 독립 커뮤니티 문화 프로젝트입니다. 출시 전 단계이며 발행된 토큰은 없습니다.'
+      'BitCong(BCONG)은 비트코인의 최소 단위에서 착안한 Solana 기반 커뮤니티 문화 토큰입니다. 민트 권한과 동결 권한은 영구히 철회되었으며, 모든 파라미터는 온체인에서 검증할 수 있습니다.'
   },
 
   nav: {
@@ -14,6 +14,7 @@ export const ko: Dict = {
     tokenomics: '토크노믹스',
     community: '커뮤니티',
     transparency: '투명성',
+    proof: '증명',
     contact: '문의'
   },
 
@@ -30,9 +31,9 @@ export const ko: Dict = {
     lastUpdated: '논의용 초안 · 2026년 10월',
     languageLabel: '언어',
     swap: 'BCONG 스왑',
-    swapSoon: '스왑은 출시 후 열립니다',
+    swapSoon: '스왑은 유동성 추가 후 열립니다',
     swapNote: '공개 애그리게이터로 이동합니다. 지갑은 브라우저에 남습니다.',
-    swapUnavailable: '아직 민트 주소가 없습니다. 스왑 진입점은 출시 후 활성화됩니다.'
+    swapUnavailable: '아직 유동성 풀이 없습니다. 풀 생성 후 스왑 진입점이 활성화됩니다.'
   },
 
   home: {
@@ -41,11 +42,11 @@ export const ko: Dict = {
       titleLine1: '하나의 사토시.',
       titleLine2: '하나의 커뮤니티.',
       lead:
-        'BitCong 은 비트코인의 최소 단위에서 이름을 빌려왔습니다. 계획된 공급량은 앞으로 존재하게 될 모든 사토시의 수와 같습니다. 이는 문화적 참조일 뿐, 비트코인에 대한 권리를 뜻하지 않습니다.',
-      note: '출시 전 단계입니다. 이 사이트의 어떤 내용도 아직 발행·배포·온체인화되지 않았습니다.'
+        'BitCong 은 비트코인의 최소 단위에서 이름을 빌려왔습니다. 공급량은 앞으로 존재하게 될 모든 사토시의 수와 같습니다. 이는 문화적 참조일 뿐, 비트코인에 대한 권리를 뜻하지 않습니다.',
+      note: 'Solana 메인넷에 발행되었습니다. 민트 권한은 철회되었고 공급량은 고정되어 있으며 동결 기능은 없습니다.'
     },
     stats: {
-      supplyLabel: '계획 공급량',
+      supplyLabel: '총 공급량',
       supplyValue: '2.1Q',
       supplyNote: '전체 사토시와 동일',
       networkLabel: '네트워크',
@@ -55,8 +56,8 @@ export const ko: Dict = {
       tickerValue: 'BCONG',
       tickerNote: '티커 사용 가능 여부 확인 중',
       statusLabel: '상태',
-      statusValue: '미발행',
-      statusNote: '민트 주소가 존재하지 않습니다'
+      statusValue: '발행됨',
+      statusNote: '민트 권한 철회됨'
     },
     why: {
       eyebrow: 'WHY BITCONG',
@@ -98,15 +99,15 @@ export const ko: Dict = {
       items: [
         {
           k: '무엇인가',
-          t: '비트코인의 최소 단위에서 이름을 따온, Solana 기반으로 계획 중인 커뮤니티 문화 프로젝트.'
+          t: '비트코인의 최소 단위에서 이름을 따온 Solana 기반 커뮤니티 문화 토큰.'
         },
         {
           k: '왜 이 숫자인가',
-          t: '계획 공급량은 앞으로 존재하게 될 모든 사토시의 수와 같습니다. 21,000,000 BTC × 100,000,000 사토시.'
+          t: '공급량은 앞으로 존재하게 될 모든 사토시의 수와 같습니다. 21,000,000 BTC × 100,000,000 사토시.'
         },
         {
           k: '현재 위치',
-          t: '미발행. 민트 주소도, 풀도, 판매도, 분배도 이루어지지 않았습니다.'
+          t: '발행됨. 민트 주소가 공개되었고 민트 권한은 철회되었습니다. 유동성 풀은 아직 없습니다.'
         }
       ],
       qa: [
@@ -237,6 +238,58 @@ export const ko: Dict = {
     channelsNote: '소셜 계정은 검증이 끝나면 이곳에 공개됩니다. 그전까지는 대기로 표시됩니다.'
   },
 
+  proof: {
+    eyebrow: '온체인 증명',
+    title: '발행 증명',
+    intro:
+      '이 사이트의 모든 주장은 우리를 신뢰하지 않고도 검증할 수 있어야 합니다. 이 페이지는 민트 주소, 공급량, 권한 상태, 거래 서명을 공개합니다. 온체인 거래가 실제로 발생하기 전까지 각 항목은 비어 있습니다.',
+    stateNotIssued: '미발행',
+    stateNotIssuedNote:
+      '아직 토큰이 발행되지 않았습니다. 아래 항목은 실제 온체인 거래가 존재한 뒤에만 기재되며, 사전에 채우지 않습니다.',
+    stateIssued: '발행됨',
+    stateIssuedNote:
+      '아래 값은 이 페이지에 기재된 거래 기록에서 가져온 것입니다. 임의의 Solana RPC로 직접 검증할 수 있습니다.',
+    paramsTitle: '토큰 사양',
+    authorityTitle: '권한 상태',
+    allocationTitle: '분배',
+    verifyTitle: '직접 검증하기',
+    verifyNote:
+      '민트 주소를 아무 블록 탐색기에 입력하거나, 공개 RPC에 아래 명령을 실행하세요. 우리의 허가가 필요하지 않습니다.',
+    fakeTitle: '공식 주소와 위조 토큰',
+    fakeBody:
+      '이 페이지에 기재된 민트 주소만 공식입니다. BCONG 티커를 사용하는 다른 컨트랙트는 본 프로젝트와 무관합니다. 관리자는 시드 구문, 개인 키, 보상 수령을 위한 송금을 절대 요구하지 않습니다.',
+    empty: '공개 예정',
+    notRevoked: '여전히 유효',
+    revoked: '철회됨',
+    locked: '잠김',
+    unlockable: '변경 가능',
+    disabled: '설정 안 됨',
+    fields: {
+      name: '토큰 이름',
+      symbol: '심볼',
+      network: '네트워크',
+      standard: '토큰 표준',
+      supply: '총 공급량',
+      decimals: '소수 자릿수',
+      mint: '민트 주소',
+      metadataUri: '메타데이터 URI',
+      updated: '증거 업데이트'
+    },
+    authority: {
+      mint: '민트 권한 — 추가 발행 여부',
+      freeze: '동결 권한 — 계정 동결 여부',
+      metadata: '메타데이터 권한 — 이름·심볼·아이콘'
+    },
+    columns: {
+      authority: '권한',
+      state: '상태',
+      tx: '거래 서명',
+      bucket: '분배',
+      amount: '수량',
+      address: '수령 주소'
+    }
+  },
+
   pages: {
     community: {
       platforms: [
@@ -345,7 +398,7 @@ export const ko: Dict = {
       contact: '문의'
     },
     disclaimer:
-      'BCONG 은 독립적인 커뮤니티 문화 실험입니다. BTC 가 아니고, 비트코인 네트워크상의 자산도 아니며, Satoshi Nakamoto 또는 Bitcoin Core 와 제휴하지 않습니다. 프로젝트는 논의 단계이며 발행된 토큰은 없습니다. 여기에 표시된 모든 파라미터, 배분, 규칙은 계획이고, 배포되지 않은 것을 완료로 제시하지 않습니다.',
+      'BCONG 은 독립적인 커뮤니티 문화 실험입니다. BTC 가 아니고, 비트코인 네트워크상의 자산도 아니며, Satoshi Nakamoto 또는 Bitcoin Core 와 제휴하지 않습니다. 토큰은 Solana 메인넷에 발행되었고 공급량은 고정되어 있으며 민트 권한은 철회되었습니다. 아직 실행되지 않은 사항(유동성 추가 등)은 계획으로 명시하며 완료로 제시하지 않습니다.',
     rights: 'BITCONG COMMUNITY. 독립 커뮤니티 프로젝트.',
     notAffiliated: '비트코인 및 Satoshi Nakamoto 와 제휴하지 않습니다.'
   },

@@ -7,7 +7,7 @@ export const en = {
   meta: {
     title: 'BitCong — One Satoshi. One Community.',
     description:
-      'BitCong is an independent community-driven cultural project planned on Solana, inspired by the smallest unit of Bitcoin. Pre-launch: no token has been issued.'
+      'BitCong (BCONG) is a community-driven cultural token on Solana, inspired by the smallest unit of Bitcoin. Mint authority and freeze authority are permanently revoked; every parameter can be verified on-chain.'
   },
 
   nav: {
@@ -16,6 +16,7 @@ export const en = {
     tokenomics: 'Tokenomics',
     community: 'Community',
     transparency: 'Transparency',
+    proof: 'Proof',
     contact: 'Contact'
   },
 
@@ -32,9 +33,9 @@ export const en = {
     lastUpdated: 'Discussion draft · October 2026',
     languageLabel: 'Language',
     swap: 'Swap BCONG',
-    swapSoon: 'Swap opens after launch',
+    swapSoon: 'Swap opens after liquidity is added',
     swapNote: 'Redirects to a public aggregator. Wallet stays in your browser.',
-    swapUnavailable: 'No mint address yet — the swap entry activates after launch.'
+    swapUnavailable: 'No liquidity pool yet — the swap entry activates once the pool exists.'
   },
 
   home: {
@@ -44,10 +45,10 @@ export const en = {
       titleLine2: 'One Community.',
       lead:
         'BitCong takes its name from the smallest unit of Bitcoin. Its planned supply equals every satoshi that will ever exist — a cultural reference, not a claim on Bitcoin.',
-      note: 'Pre-launch. Nothing on this site is issued, deployed, or on-chain yet.'
+      note: 'Live on Solana mainnet. Mint authority revoked, supply fixed, no freeze function.'
     },
     stats: {
-      supplyLabel: 'Planned supply',
+      supplyLabel: 'Total supply',
       supplyValue: '2.1Q',
       supplyNote: 'Equal to all satoshis',
       networkLabel: 'Network',
@@ -57,8 +58,8 @@ export const en = {
       tickerValue: 'BCONG',
       tickerNote: 'Ticker pending availability check',
       statusLabel: 'Status',
-      statusValue: 'Not launched',
-      statusNote: 'No mint address exists'
+      statusValue: 'Issued',
+      statusNote: 'Mint authority revoked'
     },
     why: {
       eyebrow: 'WHY BITCONG',
@@ -100,7 +101,7 @@ export const en = {
       items: [
         {
           k: 'WHAT IT IS',
-          t: 'A community cultural project planned on Solana, named after the smallest unit of Bitcoin.'
+          t: 'A community-driven cultural token on Solana, named after the smallest unit of Bitcoin.'
         },
         {
           k: 'WHY THIS NUMBER',
@@ -108,7 +109,7 @@ export const en = {
         },
         {
           k: 'WHERE IT STANDS',
-          t: 'Not launched. No mint address, no pool, no sale, and no distribution has taken place.'
+          t: 'Issued. The mint address is public and mint authority has been revoked. No liquidity pool yet.'
         }
       ],
       qa: [
@@ -234,6 +235,58 @@ export const en = {
     channelsNote: 'Social accounts will be published here once verified. Until then they are marked as pending.'
   },
 
+  proof: {
+    eyebrow: 'ON-CHAIN PROOF',
+    title: 'Issuance proof',
+    intro:
+      'Every claim on this site should be checkable without trusting us. This page publishes the mint address, supply, authority states and transaction signatures. Fields stay empty until the corresponding transaction exists on-chain.',
+    stateNotIssued: 'Not issued',
+    stateNotIssuedNote:
+      'No token has been minted. Everything below is filled only after real on-chain transactions exist — never in advance.',
+    stateIssued: 'Issued',
+    stateIssuedNote:
+      'The values below come from the transaction records listed here. Verify them independently with any Solana RPC.',
+    paramsTitle: 'Token parameters',
+    authorityTitle: 'Authority status',
+    allocationTitle: 'Allocation',
+    verifyTitle: 'Verify it yourself',
+    verifyNote:
+      'Paste the mint address into any explorer, or run the commands below against a public RPC. No permission from us is required.',
+    fakeTitle: 'Official address and fakes',
+    fakeBody:
+      'Only the mint address on this page is official. Any other contract using the BCONG ticker is unrelated to this project. Administrators will never ask for a seed phrase, a private key, or a transfer to claim rewards.',
+    empty: 'To be published',
+    notRevoked: 'Still active',
+    revoked: 'Revoked',
+    locked: 'Locked',
+    unlockable: 'Still updatable',
+    disabled: 'Not set',
+    fields: {
+      name: 'Token name',
+      symbol: 'Symbol',
+      network: 'Network',
+      standard: 'Token standard',
+      supply: 'Total supply',
+      decimals: 'Decimals',
+      mint: 'Mint address',
+      metadataUri: 'Metadata URI',
+      updated: 'Evidence last updated'
+    },
+    authority: {
+      mint: 'Mint authority — further issuance',
+      freeze: 'Freeze authority — freezing accounts',
+      metadata: 'Metadata authority — name, symbol, icon'
+    },
+    columns: {
+      authority: 'Authority',
+      state: 'State',
+      tx: 'Transaction',
+      bucket: 'Bucket',
+      amount: 'Amount',
+      address: 'Receiving address'
+    }
+  },
+
   pages: {
     community: {
       platforms: [
@@ -342,7 +395,7 @@ export const en = {
       contact: 'Contact'
     },
     disclaimer:
-      'BCONG is an independent community cultural experiment. It is not BTC, not an asset on the Bitcoin network, and not affiliated with Satoshi Nakamoto or Bitcoin Core. The project is in a discussion phase and no token has been issued: all parameters, allocations and rules shown here are plans, and nothing undeployed is presented as completed.',
+      'BCONG is an independent community cultural experiment. It is not BTC, not an asset on the Bitcoin network, and not affiliated with Satoshi Nakamoto or Bitcoin Core. The token is issued on Solana mainnet with a fixed supply, and mint authority has been revoked. Anything that has not happened yet, such as liquidity provision, is stated as a plan and never presented as completed.',
     rights: 'BITCONG COMMUNITY. Independent community project.',
     notAffiliated: 'Not affiliated with Bitcoin or Satoshi Nakamoto.'
   },

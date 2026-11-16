@@ -8,7 +8,7 @@ export const zhTw: Dict = {
   meta: {
     title: 'BitCong — 一聰，一社群。',
     description:
-      'BitCong 是一個獨立的社群文化專案，計畫建立在 Solana 上，靈感來自比特幣的最小單位。發行前狀態：尚未發行任何代幣。'
+      'BitCong（BCONG）是部署在 Solana 上的社群文化代幣，取名自比特幣的最小單位。鑄造權限與凍結權限已永久撤銷，所有參數均可在鏈上核驗。'
   },
 
   nav: {
@@ -17,6 +17,7 @@ export const zhTw: Dict = {
     tokenomics: '代幣經濟',
     community: '社群',
     transparency: '透明度',
+    proof: '證明',
     contact: '聯絡'
   },
 
@@ -33,9 +34,9 @@ export const zhTw: Dict = {
     lastUpdated: '討論稿 · 2026 年 10 月',
     languageLabel: '語言',
     swap: '兌換 BCONG',
-    swapSoon: '發行後開放兌換',
+    swapSoon: '兌換功能將在流動性建立後開放',
     swapNote: '將重新導向至公開聚合器。錢包始終留在你的瀏覽器中。',
-    swapUnavailable: '尚無鑄造地址 — 兌換入口將於發行後啟用。'
+    swapUnavailable: '尚無流動性池 — 兌換入口將於建池後啟用。'
   },
 
   home: {
@@ -44,11 +45,11 @@ export const zhTw: Dict = {
       titleLine1: '一聰。',
       titleLine2: '一社群。',
       lead:
-        'BitCong 取名自比特幣的最小單位。其計畫供應量等於未來將存在的每一聰 — 這是文化上的引用，並非對比特幣的任何權利主張。',
-      note: '發行前。本網站所示內容均尚未發行、部署或上鏈。'
+        'BitCong 取名自比特幣的最小單位。其供應量等於未來將存在的每一聰 — 這是文化上的引用，並非對比特幣的任何權利主張。',
+      note: '已在 Solana 主網發行。鑄造權限已撤銷，供應量固定，無凍結功能。'
     },
     stats: {
-      supplyLabel: '計畫供應量',
+      supplyLabel: '總供應量',
       supplyValue: '2.1Q',
       supplyNote: '等於所有聰的總量',
       networkLabel: '網路',
@@ -58,8 +59,8 @@ export const zhTw: Dict = {
       tickerValue: 'BCONG',
       tickerNote: '代號尚待可用性檢查',
       statusLabel: '狀態',
-      statusValue: '尚未發行',
-      statusNote: '不存在鑄造地址'
+      statusValue: '已發行',
+      statusNote: '鑄造權限已撤銷'
     },
     why: {
       eyebrow: '為何是 BITCONG',
@@ -101,15 +102,15 @@ export const zhTw: Dict = {
       items: [
         {
           k: '它是什麼',
-          t: '一個計畫建立在 Solana 上的社群文化專案，以比特幣的最小單位命名。'
+          t: '一個部署在 Solana 上的社群文化代幣，以比特幣的最小單位命名。'
         },
         {
           k: '為何是這個數字',
-          t: '其計畫供應量等於未來將存在的每一聰：2,100 萬 BTC × 1 億聰。'
+          t: '其供應量等於未來將存在的每一聰：2,100 萬 BTC × 1 億聰。'
         },
         {
           k: '目前進度',
-          t: '尚未發行。沒有鑄造地址、沒有資金池、沒有銷售，也未進行任何分配。'
+          t: '已發行。鑄造地址已公開，鑄造權限已撤銷；流動性池尚未建立。'
         }
       ],
       qa: [
@@ -235,6 +236,57 @@ export const zhTw: Dict = {
     channelsNote: '社群帳號驗證後會公布於此。在此之前均標示為待驗證。'
   },
 
+  proof: {
+    eyebrow: '鏈上證明',
+    title: '發行證明',
+    intro:
+      '本頁所有說法都應能被獨立核對，而不必信任我們。這裡公布鑄幣地址、供應量、權限狀態與交易簽名。欄位在鏈上真實交易發生之前一律留空。',
+    stateNotIssued: '尚未發行',
+    stateNotIssuedNote:
+      '目前沒有鑄造任何代幣。下列欄位只會在鏈上真實交易存在之後填寫，絕不允許提前編造。',
+    stateIssued: '已發行',
+    stateIssuedNote: '下列數值來自本頁列出的交易紀錄，可用任意 Solana RPC 自行複核。',
+    paramsTitle: '代幣參數',
+    authorityTitle: '權限狀態',
+    allocationTitle: '份額分配',
+    verifyTitle: '自行驗證',
+    verifyNote:
+      '把鑄幣地址貼進任意區塊瀏覽器，或對公開 RPC 執行下面的指令。不需要任何人的授權。',
+    fakeTitle: '唯一官方地址與仿冒風險',
+    fakeBody:
+      '只有本頁列出的鑄幣地址是官方的。任何其他使用 BCONG 符號的合約都與本專案無關。管理員永遠不會索要助記詞、私鑰，也不會要求轉帳以領取獎勵。',
+    empty: '待公布',
+    notRevoked: '仍然有效',
+    revoked: '已撤銷',
+    locked: '已鎖定',
+    unlockable: '仍可修改',
+    disabled: '未設定',
+    fields: {
+      name: '代幣名稱',
+      symbol: '符號',
+      network: '網路',
+      standard: '代幣標準',
+      supply: '總供應量',
+      decimals: '精度',
+      mint: '鑄幣地址',
+      metadataUri: '元資料 URI',
+      updated: '證據更新時間'
+    },
+    authority: {
+      mint: '鑄造權限 — 決定能否繼續增發',
+      freeze: '凍結權限 — 決定能否凍結帳戶',
+      metadata: '元資料權限 — 控制名稱、符號、圖示'
+    },
+    columns: {
+      authority: '權限',
+      state: '狀態',
+      tx: '交易簽名',
+      bucket: '份額',
+      amount: '數量',
+      address: '接收地址'
+    }
+  },
+
   pages: {
     community: {
       platforms: [
@@ -343,7 +395,7 @@ export const zhTw: Dict = {
       contact: '聯絡'
     },
     disclaimer:
-      'BCONG 是一項獨立的社群文化實驗。它不是 BTC、不是比特幣網路上的資產，也不與 Satoshi Nakamoto 或 Bitcoin Core 有關聯。專案處於討論階段且尚未發行任何代幣：此處顯示的所有參數、分配與規則均為計畫，未部署的事項不會被呈現為已完成。',
+      'BCONG 是一項獨立的社群文化實驗。它不是 BTC、不是比特幣網路上的資產，也不與 Satoshi Nakamoto 或 Bitcoin Core 有關聯。代幣已在 Solana 主網發行，供應量固定，鑄造權限已撤銷；尚未發生的事項（如流動性）會明確標示為計畫，不會寫成已完成。',
     rights: 'BITCONG 社群。獨立社群專案。',
     notAffiliated: '與比特幣或 Satoshi Nakamoto 無關聯。'
   },

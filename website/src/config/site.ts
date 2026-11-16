@@ -45,9 +45,9 @@ export const contact = {
 
 /** 发行与链上状态。只有拿到真实证据后才能改成 completed。 */
 export const chainStatus = [
-  { key: 'launch', state: 'not_launched' },
-  { key: 'mint', state: 'planned_revocation' },
-  { key: 'freeze', state: 'planned_revocation' },
+  { key: 'launch', state: 'completed' },
+  { key: 'mint', state: 'completed' },
+  { key: 'freeze', state: 'completed' },
   { key: 'metadata', state: 'planned_management' },
   { key: 'vesting', state: 'proposed' },
   { key: 'treasury', state: 'proposed' },
@@ -72,4 +72,64 @@ export const swap = {
   provider: 'Jupiter',
   mintAddress: '',
   url: (mint: string) => `https://jup.ag/swap/SOL-${mint}`
+};
+
+/**
+ * 链上发行证据 —— /proof/ 页面与 /proof.json 的唯一数据源。
+ *
+ * 规则：只有链上真实产生对应交易后才允许填写。
+ * 空字符串 / 空数组一律按「尚未发生」渲染，禁止用占位地址凑数。
+ */
+export type IssuanceState = 'not_issued' | 'issued';
+
+export const issuance: {
+  state: IssuanceState;
+  mintAddress: string;
+  createMintTx: string;
+  supplyTx: string;
+  mintAuthorityRevokedTx: string;
+  /** 创建 Mint 时即未设置冻结权限（本项目采用此方式，无需撤销交易） */
+  freezeAuthorityDisabled: boolean;
+  metadataLockTx: string;
+  metadataLocked: boolean;
+  allocations: Array<{ key: AllocationKey; address: string; tx: string }>;
+  updatedAt: string;
+} = {
+  state: 'issued',
+  mintAddress: '8taBmgpZpWWPFMWyPaDCZTqj7q6MNF5635BaJFUWrMAc',
+  createMintTx: '4ehAesUcezz1wm23Y3bEETmY7jQe5861rshpfmV8yEKTbGu3nJ6VmM9SSEyFGxtZABm4THnRAUCQkbqQMqfBVLCT',
+  supplyTx: '4ND9TDaTwAMXn7JbLMr2z8J9c7Gt6oxWiQRu1EjwJz7Pz58AhVwLhEKFfXS3FidrmMm1uka9j4yCnop53bMRnYYZ',
+  mintAuthorityRevokedTx: 'L4rJfAubaHQLwjFb7bFbdBsKzG5SZma2UwTvQCLYKpSpkGxMo2PQ7kAsSg19xpscgAVufj8JvtvCJ46MknubcfL',
+  freezeAuthorityDisabled: true,
+  metadataLockTx: '',
+  metadataLocked: false,
+  allocations: [
+    {
+      key: 'community',
+      address: '31CUZmJUpa9JmLc7sc7Z4YVyTVpVpiynAGNzkkgjPiSA',
+      tx: '2htcBf4JvuR2bpDvZYskvxrg39qD6rXdNuN3UHViSQgzbWPWLKXfZ1yoxchVeLtzaPTzVsq6DX3V7LoTXcyAagvC'
+    },
+    {
+      key: 'liquidity',
+      address: 'vB3W1WFVyFQFA3VHs3T9cuQ5RVAXzxKpVG6DNiEcFCE',
+      tx: '468BKHTE9DRJKMi7T4nWV1mtZzkjgr79kh4owBc38f7VPbEm9kasXwkju6vSQBJwq5Us6GASxgpmxqk7BxkY3zEm'
+    },
+    {
+      key: 'team',
+      address: 'HswsUsmdrHfusihKx8e9pa96Fsz8empZne4NcANVZS7B',
+      tx: '3dh6Fp5DUgw24Eirzs7mzBA4NjXt724xprbpFCMMyugbQepTsUJgGo5WJnaEkGsEAnofa9zpZn6EHiFyun1smkyB'
+    },
+    {
+      key: 'treasury',
+      address: 'CAnuTABMc27PJk8tFVxf6EiVpDGGBz6BXzptBxjRhSkK',
+      tx: '3aYGmaSidhpAum7vFZjYuDK1bS8wM46qtn7CrasbpbZALggJNnpdhG8DoZxuqzFes2aokVk2iL5QzYUcyKQqkSTC'
+    }
+  ],
+  updatedAt: '2026-11-16'
+};
+
+/** Solana 主网浏览器地址，供 proof 页拼接。 */
+export const explorer = {
+  address: (value: string) => `https://explorer.solana.com/address/${value}`,
+  tx: (value: string) => `https://explorer.solana.com/tx/${value}`
 };
