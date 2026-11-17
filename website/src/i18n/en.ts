@@ -177,6 +177,40 @@ export const en = {
         'Official channels are listed here and nowhere else. Unverified accounts are shown as pending rather than linked.',
       cta: 'Community guidelines'
     },
+    channels: {
+      eyebrow: 'REAL CHANNELS',
+      title: 'Where BCONG actually exists.',
+      intro:
+        'Every link below points to a platform the token is already live on, and can be checked without trusting this site. No exchange listing exists, and no exchange relationship is claimed.',
+      open: 'Open',
+      pending: 'Not open yet',
+      items: {
+        solscan: {
+          title: 'Token on Solscan',
+          body: 'Supply, decimals, holders and every transfer, read directly from the chain.'
+        },
+        explorer: {
+          title: 'Mint on Solana Explorer',
+          body: 'The official explorer. Confirm mint authority and freeze authority yourself.'
+        },
+        proof: {
+          title: 'Issuance proof',
+          body: 'Mint address, allocation transactions and authority state, published on one page.'
+        },
+        github: {
+          title: 'Source repository',
+          body: 'Every change to wording and figures is a public commit with its own history.'
+        },
+        dexscreener: {
+          title: 'Market listing',
+          body: 'A price feed requires a liquidity pool. This entry activates once the pool exists.'
+        },
+        jupiter: {
+          title: 'Swap route',
+          body: 'Swapping requires a pool. This entry activates once liquidity is added.'
+        }
+      }
+    },
     risk: {
       title: 'Risk disclosure',
       body:

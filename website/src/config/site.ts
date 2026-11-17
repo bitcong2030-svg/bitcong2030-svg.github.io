@@ -133,3 +133,49 @@ export const explorer = {
   address: (value: string) => `https://explorer.solana.com/address/${value}`,
   tx: (value: string) => `https://explorer.solana.com/tx/${value}`
 };
+
+/**
+ * 真实渠道 —— 首页「可核验入口」区块的唯一数据源。
+ *
+ * 规则：只列出代币真实存在于其上的平台。
+ * href 为空即视为未开放，页面渲染为 pending，不生成链接。
+ * 交易所一律不列，直到对方公开发布公告。
+ */
+export const channels: Array<{
+  id: 'solscan' | 'explorer' | 'proof' | 'github' | 'dexscreener' | 'jupiter';
+  label: string;
+  href: string;
+  internal?: boolean;
+}> = [
+  {
+    id: 'solscan',
+    label: 'SOLSCAN',
+    href: `https://solscan.io/token/${issuance.mintAddress}`
+  },
+  {
+    id: 'explorer',
+    label: 'SOLANA EXPLORER',
+    href: explorer.address(issuance.mintAddress)
+  },
+  {
+    id: 'proof',
+    label: 'BITCONG',
+    href: '/proof/',
+    internal: true
+  },
+  {
+    id: 'github',
+    label: 'GITHUB',
+    href: 'https://github.com/bitcong2030-svg/bitcong2030-svg.github.io'
+  },
+  {
+    id: 'dexscreener',
+    label: 'DEXSCREENER',
+    href: ''
+  },
+  {
+    id: 'jupiter',
+    label: 'JUPITER',
+    href: ''
+  }
+];

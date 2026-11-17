@@ -178,6 +178,40 @@ export const zhCn: Dict = {
         '官方渠道仅在此处列出，别处不再列出。未验证的账号一律标注为待验证，而不提供链接。',
       cta: '社区准则'
     },
+    channels: {
+      eyebrow: '真实渠道',
+      title: 'BCONG 真实存在的平台。',
+      intro:
+        '下面每一个链接都指向代币已经上线、可以不经由本站直接核验的平台。目前没有任何交易所上线，也不声称与任何交易所存在关系。',
+      open: '打开',
+      pending: '尚未开放',
+      items: {
+        solscan: {
+          title: 'Solscan 上的代币页',
+          body: '供应量、精度、持有者与全部转账记录，直接读取链上数据。'
+        },
+        explorer: {
+          title: 'Solana Explorer 上的 Mint',
+          body: '官方区块浏览器。铸造权限与冻结权限可以自己核对。'
+        },
+        proof: {
+          title: '发行证明',
+          body: '铸造地址、四笔分配的交易签名与权限状态，集中在一页公开。'
+        },
+        github: {
+          title: '源码仓库',
+          body: '网站上每一处措辞和数字的改动都是公开提交，带有完整历史。'
+        },
+        dexscreener: {
+          title: '行情收录',
+          body: '行情需要流动性池。池子建立后本入口自动开放。'
+        },
+        jupiter: {
+          title: '兑换路由',
+          body: '兑换需要流动性池。注入流动性后本入口自动开放。'
+        }
+      }
+    },
     risk: {
       title: '风险披露',
       body:
